@@ -155,7 +155,6 @@ public class Window {
                         (double) Window.width / (double) renderWidth;
         rectWidth = (int) (renderWidth * scalingFactor);
         rectHeight = (int) (renderHeight * scalingFactor);
-
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0,0,Window.width, Window.height);
         graphics.drawImage(render,(Window.width - rectWidth)/2, (Window.height - rectHeight)/2, rectWidth,rectHeight,null);
@@ -195,7 +194,7 @@ public class Window {
 
             update.run();
             RenderUtils.g = Window.render.createGraphics();
-            RenderUtils.FillRect(0,0,Window.renderWidth,Window.renderHeight,Color.BLACK);
+            RenderUtils.FillRect(0,0,Window.renderWidth,Window.renderHeight,Color.black);
             render.run();
             shader.accept(renderBuffer);
             Window.render();

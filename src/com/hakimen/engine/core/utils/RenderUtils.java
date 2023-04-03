@@ -9,6 +9,8 @@ import static com.hakimen.engine.core.utils.Mathf.map;
 public class RenderUtils {
     public static Graphics2D g;
 
+
+
     public static void SetRenderHints(RenderingHints.Key key, Object value){
         g.setRenderingHint(key, value);
     }
@@ -16,7 +18,7 @@ public class RenderUtils {
         g.scale(x,y);
     }
     public static void ClipShape(Shape s){
-        g.clip(s);
+        g.setClip(s);
     }
 
     public static void Translate(int dx,int dy){
@@ -183,14 +185,14 @@ public class RenderUtils {
         FillTriangle((float)p1x,(float)p1y,(float)p2x,(float)p2y,(float)p3x,(float)p3y,c);
     }
 
-    public Color GetPixelColor(BufferedImage img, int x, int y) {
+    public static Color GetPixelColor(BufferedImage img, int x, int y) {
         int rgb = img.getRGB(x, y);
         int red = (rgb >> 16) & 0xFF;
         int green = (rgb >> 8) & 0xFF;
         int blue = rgb & 0xFF;
         return new Color(red, green, blue);
     }
-    public BufferedImage GetTintedImage(BufferedImage sprite, Color color) {
+    public static BufferedImage GetTintedImage(BufferedImage sprite, Color color) {
         BufferedImage tintedSprite = new BufferedImage(sprite.getWidth(), sprite.getHeight(), BufferedImage.TRANSLUCENT);
         Graphics2D graphics = tintedSprite.createGraphics();
         graphics.drawImage(sprite, 0, 0, null);
