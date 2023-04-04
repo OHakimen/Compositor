@@ -12,6 +12,7 @@ public class AddNodeContainer extends NodeContainer {
 
     public AddNodeContainer(float x, float y) {
         super(x, y, "Add Node");
+        sx = sx + 64;
         readerNodes.put(FIRST_VALUE, new NumberNode(this,true, 0f));
         readerNodes.put(SECOND_VALUE, new NumberNode(this,true, 0f));
 

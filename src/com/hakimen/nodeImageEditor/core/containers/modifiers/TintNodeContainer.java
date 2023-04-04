@@ -11,16 +11,21 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class TintNodeContainer extends NodeContainer {
+
+    static final String IMAGE = "Image";
+    static final String COLOR = "Color";
+    static final String OUTPUT = "Output Image";
+
     public TintNodeContainer(float x, float y) {
         super(x, y, "Tint Node");
-        readerNodes.put("Image", new ImageNode(this,true));
-        readerNodes.put("Color", new ColorNode(this,true, Color.white));
-        writerNodes.put("Output Image", new ImageNode(this,false));
+        readerNodes.put(IMAGE, new ImageNode(this,true));
+        readerNodes.put(COLOR, new ColorNode(this,true, Color.white));
+        writerNodes.put(OUTPUT, new ImageNode(this,false));
     }
 
     @Override
     public void render() {
-        if(writerNodes.get("Output Image") instanceof ImageNode node){
+        if(writerNodes.get(OUTPUT) instanceof ImageNode node){
             RenderUtils.ClipShape(new RoundRectangle2D.Float(x,y+sy,sx,sx, 16f,16f));
             RenderUtils.DrawImage(x,y+sy,sx,sx,node.getValue());
             RenderUtils.ClipShape(null);
@@ -30,10 +35,10 @@ public class TintNodeContainer extends NodeContainer {
 
     @Override
     public void update() {
-        if(readerNodes.get("Image") instanceof ImageNode node){
+        if(readerNodes.get(IMAGE) instanceof ImageNode node){
             if(node.getValue() != null){
-                if(writerNodes.get("Output Image") instanceof ImageNode out &&
-                        readerNodes.get("Color")instanceof ColorNode color){
+                if(writerNodes.get(OUTPUT) instanceof ImageNode out &&
+                        readerNodes.get(COLOR)instanceof ColorNode color){
                     if(Window.ticks % 20 == 0){
                         out.setValue(RenderUtils.GetTintedImage(node.getValue(),color.getValue()));
                     }

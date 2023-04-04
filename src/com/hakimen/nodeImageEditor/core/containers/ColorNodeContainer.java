@@ -12,10 +12,12 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class ColorNodeContainer extends NodeContainer {
+
+    static final String COLOR = "Color";
     public ColorNodeContainer(float x, float y) {
         super(x, y, "Color Node");
         this.sx = name.length() * 8 + (4*32);
-        writerNodes.put("Color", new ColorNode(this,false,Color.WHITE));
+        writerNodes.put(COLOR, new ColorNode(this,false,Color.WHITE));
     }
 
 
@@ -25,7 +27,7 @@ public class ColorNodeContainer extends NodeContainer {
 
         if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed){
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
-                if(writerNodes.get("Color") instanceof ColorNode node){
+                if(writerNodes.get(COLOR) instanceof ColorNode node){
                     node.setValue(JColorChooser.showDialog(null,"Pick a Color",node.getValue()));
                 }
             }
@@ -36,7 +38,7 @@ public class ColorNodeContainer extends NodeContainer {
     @Override
     public void render() {
         super.render();
-        if(writerNodes.get("Color") instanceof ColorNode node){
+        if(writerNodes.get(COLOR) instanceof ColorNode node){
             RenderUtils.FillRoundedRect(x+8,y + 48,128,32,16,16, node.getValue());
         }
     }

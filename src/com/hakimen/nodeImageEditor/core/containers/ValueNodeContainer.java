@@ -12,10 +12,12 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class ValueNodeContainer extends NodeContainer {
+
+    static final String VALUE = "Value";
     public ValueNodeContainer(float x, float y) {
         super(x, y, "Value Node");
         this.sx = name.length() * 8 + (4*32);
-        writerNodes.put("Value", new NumberNode(this,false,0));
+        writerNodes.put(VALUE, new NumberNode(this,false,0));
     }
 
 
@@ -26,7 +28,7 @@ public class ValueNodeContainer extends NodeContainer {
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
                 var str = JOptionPane.showInputDialog("Insert a value for the value node");
                 var n = Float.parseFloat(str);
-                if(writerNodes.get("Value") instanceof NumberNode node){
+                if(writerNodes.get(VALUE) instanceof NumberNode node){
                     node.setValue(n);
                 }
             }
@@ -38,6 +40,6 @@ public class ValueNodeContainer extends NodeContainer {
     public void render() {
         super.render();
         RenderUtils.FillRoundedRect(x+8,y + 48,128,32,16,16, Color.DARK_GRAY.darker());
-        RenderUtils.DrawString((int)x+6+16,(int)y+42+16,Color.WHITE,this.writerNodes.get("Value").getValue());
+        RenderUtils.DrawString((int)x+6+16,(int)y+42+16,Color.WHITE,this.writerNodes.get(VALUE).getValue());
     }
 }

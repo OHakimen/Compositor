@@ -7,6 +7,9 @@ import com.hakimen.engine.core.render.camera.CameraStack;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.NodeEditor;
+import com.hakimen.nodeImageEditor.core.containers.mathNodes.AddNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.modifiers.LayeringNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.modifiers.ScalingNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ClockNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.ColorNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.ImageNodeContainer;
@@ -14,6 +17,7 @@ import com.hakimen.nodeImageEditor.core.containers.ValueNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.converters.ColorToRGBContainer;
 import com.hakimen.nodeImageEditor.core.containers.converters.RGBtoColorContainer;
 import com.hakimen.nodeImageEditor.core.containers.modifiers.TintNodeContainer;
+import com.hakimen.nodeImageEditor.utils.Pair;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
 import java.awt.*;
@@ -43,14 +47,14 @@ public class Main implements Runnable{
 
     NodeEditor nodeEditor = new NodeEditor();
     private void init(){
-
-        nodeEditor.containers.add(new ColorToRGBContainer(200,  200));
-        nodeEditor.containers.add(new RGBtoColorContainer(200*2,200));
-        nodeEditor.containers.add(new ClockNodeContainer( 200*3,200));
-        nodeEditor.containers.add(new ImageNodeContainer( 200*4,200));
-        nodeEditor.containers.add(new ValueNodeContainer( 200*5,200));
-        nodeEditor.containers.add(new ColorNodeContainer( 200*6,200));
-        nodeEditor.containers.add(new TintNodeContainer(  200*7,200));
+        nodeEditor.containers.add(new ImageNodeContainer(300,  200));
+        nodeEditor.containers.add(new ImageNodeContainer(300*2,  200));
+        nodeEditor.containers.add(new LayeringNodeContainer(300*3,  200));
+        nodeEditor.containers.add(new ScalingNodeContainer(300*3,  200*2));
+        nodeEditor.containers.add(new AddNodeContainer(300,  200*2));
+        nodeEditor.containers.add(new AddNodeContainer(300*2,  200*2));
+        nodeEditor.containers.add(new ValueNodeContainer(300,  200*3));
+        nodeEditor.containers.add(new ValueNodeContainer(300*2,  200*3));
     }
 
     private void destroy(){
