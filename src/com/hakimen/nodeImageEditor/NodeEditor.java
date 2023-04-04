@@ -71,7 +71,7 @@ public class NodeEditor {
                 var calcX = container.x - 2;
                 var calcY = container.y + (container.readerNodes.values().stream().toList().indexOf(node)-1) * 24 + 96;
 
-                if(Keyboard.keys[KeyEvent.VK_DELETE].pressed && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                if(Keyboard.keys[KeyEvent.VK_X].pressed && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
                     for (int i = 0; i < connections.size(); i++) {
                         var con = connections.get(i);
                         if(con.getFirst() == node){

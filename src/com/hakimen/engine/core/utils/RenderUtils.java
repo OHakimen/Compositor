@@ -8,9 +8,6 @@ import static com.hakimen.engine.core.utils.Mathf.map;
 
 public class RenderUtils {
     public static Graphics2D g;
-
-
-
     public static void SetRenderHints(RenderingHints.Key key, Object value){
         g.setRenderingHint(key, value);
     }

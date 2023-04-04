@@ -7,8 +7,7 @@ import com.hakimen.engine.core.render.camera.CameraStack;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.NodeEditor;
-import com.hakimen.nodeImageEditor.core.containers.mathNodes.AddNodeContainer;
-import com.hakimen.nodeImageEditor.core.containers.mathNodes.DivideNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.mathNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.modifiers.LayeringNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.modifiers.ScalingNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ClockNodeContainer;
@@ -20,8 +19,10 @@ import com.hakimen.nodeImageEditor.core.containers.converters.RGBtoColorContaine
 import com.hakimen.nodeImageEditor.core.containers.modifiers.TintNodeContainer;
 import com.hakimen.nodeImageEditor.utils.Pair;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
+import com.sun.jdi.Value;
 
 import java.awt.*;
+import java.time.Clock;
 
 public class Main implements Runnable{
     public static void main(String[] args) {
@@ -48,13 +49,17 @@ public class Main implements Runnable{
 
     NodeEditor nodeEditor = new NodeEditor();
     private void init(){
-        nodeEditor.containers.add(new ColorNodeContainer(300,  200));
-        nodeEditor.containers.add(new ColorToRGBContainer(300*2,  200));
-        nodeEditor.containers.add(new AddNodeContainer(300*3,  200));
-        nodeEditor.containers.add(new AddNodeContainer(300*4,  200));
-        nodeEditor.containers.add(new ValueNodeContainer(300*5,  200));
-        nodeEditor.containers.add(new DivideNodeContainer(300*6,  200));
-        nodeEditor.containers.add(new RGBtoColorContainer(300*2,  200*2));
+        nodeEditor.containers.add(new MultiplyNodeContainer(300,  200));
+        nodeEditor.containers.add(new AbsoluteValueNode(300*2,  200*3));
+        nodeEditor.containers.add(new ValueNodeContainer(300*2,  200));
+
+        nodeEditor.containers.add(new ClockNodeContainer(300,  200*2));
+        nodeEditor.containers.add(new SineNodeContainer(300*2,200*2));
+
+        nodeEditor.containers.add(new RGBtoColorContainer(300*3,  200));
+        nodeEditor.containers.add(new TintNodeContainer(300*3,  200*2));
+
+        nodeEditor.containers.add(new ImageNodeContainer(300*3,  200*3));
 
     }
 
