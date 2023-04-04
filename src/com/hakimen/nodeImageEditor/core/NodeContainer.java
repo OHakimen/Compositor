@@ -47,7 +47,6 @@ public class NodeContainer {
 
 
     public void update(){
-
         if(readerNodes.size() > writerNodes.size()){
             this.sy = 64 + readerNodes.size() * 24 + 8;
         }else{

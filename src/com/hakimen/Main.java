@@ -8,6 +8,7 @@ import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.containers.mathNodes.AddNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.mathNodes.DivideNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.modifiers.LayeringNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.modifiers.ScalingNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ClockNodeContainer;
@@ -47,14 +48,14 @@ public class Main implements Runnable{
 
     NodeEditor nodeEditor = new NodeEditor();
     private void init(){
-        nodeEditor.containers.add(new ImageNodeContainer(300,  200));
-        nodeEditor.containers.add(new ImageNodeContainer(300*2,  200));
-        nodeEditor.containers.add(new LayeringNodeContainer(300*3,  200));
-        nodeEditor.containers.add(new ScalingNodeContainer(300*3,  200*2));
-        nodeEditor.containers.add(new AddNodeContainer(300,  200*2));
-        nodeEditor.containers.add(new AddNodeContainer(300*2,  200*2));
-        nodeEditor.containers.add(new ValueNodeContainer(300,  200*3));
-        nodeEditor.containers.add(new ValueNodeContainer(300*2,  200*3));
+        nodeEditor.containers.add(new ColorNodeContainer(300,  200));
+        nodeEditor.containers.add(new ColorToRGBContainer(300*2,  200));
+        nodeEditor.containers.add(new AddNodeContainer(300*3,  200));
+        nodeEditor.containers.add(new AddNodeContainer(300*4,  200));
+        nodeEditor.containers.add(new ValueNodeContainer(300*5,  200));
+        nodeEditor.containers.add(new DivideNodeContainer(300*6,  200));
+        nodeEditor.containers.add(new RGBtoColorContainer(300*2,  200*2));
+
     }
 
     private void destroy(){

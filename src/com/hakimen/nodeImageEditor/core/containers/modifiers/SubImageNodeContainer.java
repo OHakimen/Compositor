@@ -1,23 +1,29 @@
 package com.hakimen.nodeImageEditor.core.containers.modifiers;
 
 import com.hakimen.engine.core.utils.RenderUtils;
+import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
+import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
-public class ScalingNodeContainer extends NodeContainer {
+public class SubImageNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
     static final String WIDTH = "Width";
     static final String HEIGHT = "Height";
+    static final String X = "X";
+    static final String Y = "Y";
     static final String OUTPUT = "Output Image";
-    public ScalingNodeContainer(float x, float y) {
-        super(x, y, "Scaling Container");
 
+    public SubImageNodeContainer(float x, float y) {
+        super(x, y, "SubImage Node");
         readerNodes.put(IMAGE, new ImageNode(this,true));
+        readerNodes.put(X, new NumberNode(this,true, 0));
+        readerNodes.put(Y, new NumberNode(this,true, 0));
         readerNodes.put(WIDTH, new NumberNode(this,true, 0));
         readerNodes.put(HEIGHT, new NumberNode(this,true, 0));
 
@@ -37,12 +43,16 @@ public class ScalingNodeContainer extends NodeContainer {
     @Override
     public void update() {
         super.update();
-        if (writerNodes.get(OUTPUT) instanceof ImageNode out && readerNodes.get(IMAGE) instanceof ImageNode image && readerNodes.get(WIDTH) instanceof NumberNode width && readerNodes.get(HEIGHT) instanceof NumberNode height) {
-            var buff = new BufferedImage(width.getValue().intValue() | 1,height.getValue().intValue() | 1,BufferedImage.TYPE_INT_ARGB);
-            var g = buff.createGraphics();
-            g.drawImage(image.getValue(),0,0,width.getValue().intValue(),height.getValue().intValue(),null);
-            g.dispose();
-            out.setValue(buff);
+        if(readerNodes.get(IMAGE) instanceof ImageNode img &&
+            readerNodes.get(X) instanceof NumberNode x &&
+            readerNodes.get(Y) instanceof NumberNode y &&
+            readerNodes.get(WIDTH) instanceof NumberNode width &&
+            readerNodes.get(HEIGHT) instanceof NumberNode height){
+            if(writerNodes.get(OUTPUT) instanceof ImageNode out){
+                if(Window.ticks % 20 == 0){
+                    out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),width.getValue().intValue(),height.getValue().intValue()));
+                }
+            }
         }
     }
 }

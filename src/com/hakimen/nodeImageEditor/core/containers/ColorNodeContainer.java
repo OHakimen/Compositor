@@ -23,8 +23,6 @@ public class ColorNodeContainer extends NodeContainer {
 
     @Override
     public void update() {
-
-
         if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed){
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
                 if(writerNodes.get(COLOR) instanceof ColorNode node){

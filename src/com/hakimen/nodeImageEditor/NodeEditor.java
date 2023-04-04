@@ -1,5 +1,6 @@
 package com.hakimen.nodeImageEditor;
 
+import com.hakimen.engine.core.io.Keyboard;
 import com.hakimen.engine.core.io.Mouse;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.nodeImageEditor.core.Node;
@@ -11,21 +12,23 @@ import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.Pair;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
+import javax.swing.text.View;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class NodeEditor {
 
     public ArrayList<NodeContainer> containers = new ArrayList<>();
-    public boolean borderClicked,nodeClicked;
+    public boolean borderClicked;
 
-    public Node<?> clickedNode;
+    public Node<?> currentNode;
     public NodeContainer clickedContainer;
     public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
     public void update(){
         for (NodeContainer container:containers) {
-            if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !borderClicked && !nodeClicked){
+            if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !borderClicked){
                 if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x,container.y,container.sx,40)){
                     borderClicked = true;
                     clickedContainer = container;
@@ -38,63 +41,57 @@ public class NodeEditor {
                 clickedContainer.x = ViewTransformer.transformedMouseX;
                 clickedContainer.y = ViewTransformer.transformedMouseY;
             }
+            for (var node:container.writerNodes.values()) {
+                var calcX = container.x + container.sx - 2;
+                var calcY = container.y + (container.writerNodes.values().stream().toList().indexOf(node)-1) * 24 + 96;
 
-            container.readerNodes.forEach((k,v)->{
-                float nodeX = container.x - 2,nodeY = container.y + (container.readerNodes.keySet().stream().toList().indexOf(k)-1) * 24 + 96;
-                if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !nodeClicked){
-                    if(Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY, nodeX,nodeY,8)){
-                        nodeClicked = true;
-                        clickedNode = v;
-                        if(clickedNode != null){
-                            for (int i = 0; i < connections.size(); i++) {
-                                if(connections.get(i).getFirst() == clickedNode || connections.get(i).getSecond() == clickedNode){
-                                    connections.remove(i);
-                                }
-                            }
+                if(Keyboard.keys[KeyEvent.VK_X].pressed && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                    for (int i = 0; i < connections.size(); i++) {
+                        var con = connections.get(i);
+                        if(con.getFirst() == node){
+                            connections.remove(i);
+                        }else if(con.getSecond() == node){
+                            connections.remove(i);
                         }
                     }
                 }
-                if(!Mouse.mouseButtons[MouseEvent.BUTTON1].down && nodeClicked){
-                    if(clickedNode != null){
-                        connections.add(new Pair<>(clickedNode,v));
-                        clickedNode = null;
+
+                if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                    if(currentNode == null){
+                        currentNode = node;
+                    }else if(currentNode != node){
+                        connections.add(new Pair<>(currentNode,node));
+                        currentNode = null;
                     }
-                    nodeClicked = false;
+                }else if(!Mouse.mouseButtons[MouseEvent.BUTTON1].down){
+                    currentNode = null;
                 }
+            }
+            for (var node:container.readerNodes.values()) {
+                var calcX = container.x - 2;
+                var calcY = container.y + (container.readerNodes.values().stream().toList().indexOf(node)-1) * 24 + 96;
 
-                if(nodeClicked && v == clickedNode){
-                    RenderUtils.DrawLine(nodeX+2,nodeY+2, ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY, Color.RED);
-                }
-            });
-            container.writerNodes.forEach((k,v)->{
-                float nodeX = container.x + container.sx - 2,nodeY = container.y + (container.writerNodes.keySet().stream().toList().indexOf(k)-1) * 24 + 96;
-
-                if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !nodeClicked){
-                    if(Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY, nodeX,nodeY,8)){
-                        nodeClicked = true;
-                        clickedNode = v;
-                        if(clickedNode != null){
-                            for (int i = 0; i < connections.size(); i++) {
-                                if(connections.get(i).getFirst() == clickedNode || connections.get(i).getSecond() == clickedNode){
-                                    connections.remove(i);
-                                }
-                            }
+                if(Keyboard.keys[KeyEvent.VK_DELETE].pressed && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                    for (int i = 0; i < connections.size(); i++) {
+                        var con = connections.get(i);
+                        if(con.getFirst() == node){
+                            connections.remove(i);
+                        }else if(con.getSecond() == node){
+                            connections.remove(i);
                         }
                     }
                 }
-                if(!Mouse.mouseButtons[MouseEvent.BUTTON1].down && nodeClicked){
-                    if(Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY, nodeX,nodeY,4)) {
-                        if (clickedNode != null) {
-                            connections.add(new Pair<>(v,clickedNode));
-                            clickedNode = null;
-                        }
+                if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                    if(currentNode == null){
+                        currentNode = node;
+                    }else if(currentNode != node){
+                        connections.add(new Pair<>(currentNode,node));
+                        currentNode = null;
                     }
-                    nodeClicked = false;
+                }else if(!Mouse.mouseButtons[MouseEvent.BUTTON1].down){
+                    currentNode = null;
                 }
-                if(nodeClicked && v == clickedNode){
-                    RenderUtils.DrawLine(nodeX+2,nodeY+2, ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,Color.GREEN);
-                }
-            });
+            }
             container.update();
         }
         for (var pair:connections) {
