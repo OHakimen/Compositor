@@ -1,13 +1,11 @@
-package com.hakimen.nodeImageEditor.core.containers.modifiers;
+package com.hakimen.nodeImageEditor.core.containers.modifierNodes;
 
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
-import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
-import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 

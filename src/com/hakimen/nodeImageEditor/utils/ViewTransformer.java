@@ -25,7 +25,7 @@ public class ViewTransformer {
         }
         if(!Mouse.mouseButtons[MouseEvent.BUTTON3].down && mouseDrag){
             mouseDrag = false;
-        };
+        }
         transformedMouseX = Mouse.x - diffX;
         transformedMouseY = Mouse.y - diffY;
         RenderUtils.Translate( x - lastX , y - lastY);

@@ -36,8 +36,8 @@ public class Window {
     private static BufferedImage render;
     private static int[] renderBuffer;
 
-    private static JFrame frame;
-    private static Canvas canvas;
+    public static JFrame frame;
+    public static Canvas canvas;
     private static BufferStrategy bufferStrat;
 
     public static int width, height;

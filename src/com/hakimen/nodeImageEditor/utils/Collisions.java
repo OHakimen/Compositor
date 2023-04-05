@@ -11,21 +11,16 @@ public class Collisions {
 
         // if the distance is less than the circle's
         // radius the point is inside!
-        if (distance <= r) {
-            return true;
-        }
-        return false;
-    }
+       return distance <= r;
+   }
 
    public static boolean pointToRect(float px, float py, float rx, float ry, float rw, float rh) {
 
         // is the point inside the rectangle's bounds?
-        if (px >= rx &&        // right of the left edge AND
-                px <= rx + rw &&   // left of the right edge AND
-                py >= ry &&        // below the top AND
-                py <= ry + rh) {   // above the bottom
-            return true;
-        }
-        return false;
-    }
+       // above the bottom
+       return px >= rx &&        // right of the left edge AND
+               px <= rx + rw &&   // left of the right edge AND
+               py >= ry &&        // below the top AND
+               py <= ry + rh;
+   }
 }

@@ -1,13 +1,7 @@
 package com.hakimen.nodeImageEditor.core;
 
-import com.hakimen.engine.core.io.Mouse;
 import com.hakimen.engine.core.utils.RenderUtils;
-import com.hakimen.nodeImageEditor.utils.Collisions;
-import com.hakimen.nodeImageEditor.utils.ViewTransformer;
-
-import javax.swing.text.View;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class NodeContainer {

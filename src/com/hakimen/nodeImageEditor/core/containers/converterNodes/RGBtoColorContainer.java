@@ -1,7 +1,6 @@
-package com.hakimen.nodeImageEditor.core.containers.converters;
+package com.hakimen.nodeImageEditor.core.containers.converterNodes;
 
 import com.hakimen.engine.core.utils.RenderUtils;
-import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;

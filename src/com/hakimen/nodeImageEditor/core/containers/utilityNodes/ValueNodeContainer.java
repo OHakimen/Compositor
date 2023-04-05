@@ -1,4 +1,4 @@
-package com.hakimen.nodeImageEditor.core.containers;
+package com.hakimen.nodeImageEditor.core.containers.utilityNodes;
 
 import com.hakimen.engine.core.io.Mouse;
 import com.hakimen.engine.core.utils.RenderUtils;
@@ -27,9 +27,11 @@ public class ValueNodeContainer extends NodeContainer {
         if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed){
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
                 var str = JOptionPane.showInputDialog("Insert a value for the value node");
-                var n = Float.parseFloat(str);
-                if(writerNodes.get(VALUE) instanceof NumberNode node){
-                    node.setValue(n);
+                if(!str.isEmpty()) {
+                    var n = Float.parseFloat(str);
+                    if (writerNodes.get(VALUE) instanceof NumberNode node) {
+                        node.setValue(n);
+                    }
                 }
             }
         }

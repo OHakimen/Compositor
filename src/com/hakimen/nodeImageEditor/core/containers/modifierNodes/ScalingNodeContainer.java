@@ -1,4 +1,4 @@
-package com.hakimen.nodeImageEditor.core.containers.modifiers;
+package com.hakimen.nodeImageEditor.core.containers.modifierNodes;
 
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
@@ -15,7 +15,7 @@ public class ScalingNodeContainer extends NodeContainer {
     static final String HEIGHT = "Height";
     static final String OUTPUT = "Output Image";
     public ScalingNodeContainer(float x, float y) {
-        super(x, y, "Scaling Container");
+        super(x, y, "Scaling Node");
 
         readerNodes.put(IMAGE, new ImageNode(this,true));
         readerNodes.put(WIDTH, new NumberNode(this,true, 0));
