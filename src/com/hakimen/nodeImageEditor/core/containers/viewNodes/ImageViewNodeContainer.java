@@ -14,7 +14,7 @@ public class ImageViewNodeContainer extends NodeContainer {
     public ImageViewNodeContainer(float x, float y) {
         super(x, y, "Image View Node");
         readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
-        writerNodes.put(OUTPUT,new ImageNode(this,true, new BufferedImage(1,1,2)));
+        writerNodes.put(OUTPUT,new ImageNode(this,false, new BufferedImage(1,1,2)));
     }
 
     @Override

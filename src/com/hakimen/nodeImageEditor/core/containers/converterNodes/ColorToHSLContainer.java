@@ -29,10 +29,12 @@ public class ColorToHSLContainer extends NodeContainer {
                 writerNodes.get(SATURATION) instanceof NumberNode s &&
                 writerNodes.get(LUMINANCE) instanceof NumberNode l) {
             var hsl = new float[3];
-            Color.RGBtoHSB(in.getValue().getRed(),in.getValue().getGreen(),in.getValue().getBlue(),hsl);
-            h.setValue(hsl[0]);
-            s.setValue(hsl[1]);
-            l.setValue(hsl[2]);
+            if(in.getValue() != null){
+                Color.RGBtoHSB(in.getValue().getRed(),in.getValue().getGreen(),in.getValue().getBlue(),hsl);
+                h.setValue(hsl[0]);
+                s.setValue(hsl[1]);
+                l.setValue(hsl[2]);
+            }
         }
     }
 

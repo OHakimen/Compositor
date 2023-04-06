@@ -17,7 +17,7 @@ public class ValueViewNodeContainer extends NodeContainer {
         super(x, y, "Value View Node");
         sx += 64;
         readerNodes.put(VALUE,new NumberNode(this,true,0));
-        writerNodes.put(OUTPUT,new NumberNode(this,true, 0));
+        writerNodes.put(OUTPUT,new NumberNode(this,false, 0));
     }
 
     @Override

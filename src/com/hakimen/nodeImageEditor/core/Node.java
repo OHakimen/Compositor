@@ -3,7 +3,7 @@ package com.hakimen.nodeImageEditor.core;
 import java.awt.*;
 import java.io.Serializable;
 
-public class Node<T> implements Serializable {
+public class Node<T>{
     boolean isReader;
     T value;
 

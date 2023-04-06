@@ -47,7 +47,7 @@ public class SubImageNodeContainer extends NodeContainer {
             readerNodes.get(WIDTH) instanceof NumberNode width &&
             readerNodes.get(HEIGHT) instanceof NumberNode height){
             if(writerNodes.get(OUTPUT) instanceof ImageNode out){
-                if(Window.ticks % 20 == 0){
+                if(Window.ticks % 20 == 0 && x.getValue() != null && y.getValue() != null && width.getValue() != null && height.getValue() != null){
                     out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),width.getValue().intValue(),height.getValue().intValue()));
                 }
             }

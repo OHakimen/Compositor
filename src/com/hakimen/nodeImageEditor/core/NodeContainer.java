@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
 
-public class NodeContainer implements Serializable {
+public class NodeContainer{
     public float x,y,sx,sy;
     public String name;
     public Map<String,Node<?>> readerNodes = new LinkedHashMap<>();

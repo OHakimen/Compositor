@@ -30,20 +30,29 @@ public class MenuUtils {
         converterNodes.add(makeItem("HSL to Color Node", editor, HSLToColorContainer::new));
 
         Menu mathNodes = new Menu("Math Nodes");
+
+        Menu basicMathNodes = new Menu("Basic Nodes");
+        basicMathNodes.add(makeItem("Add Node", editor, AddNodeContainer::new));
+        basicMathNodes.add(makeItem("Divide Node", editor, DivideNodeContainer::new));
+        basicMathNodes.add(makeItem("Multiply Node", editor, MultiplyNodeContainer::new));
+        basicMathNodes.add(makeItem("Subtract Node", editor, SubtractNodeContainer::new));
+        basicMathNodes.add(makeItem("Modulo Node", editor, ModuloValueNodeContainer::new));
+        mathNodes.add(basicMathNodes);
+
+        Menu trigMathNodes = new Menu("Trigonometry Nodes");
+        trigMathNodes.add(makeItem("Cosine Node", editor, CosineNodeContainer::new));
+        trigMathNodes.add(makeItem("Sine Node", editor, SineNodeContainer::new));
+        trigMathNodes.add(makeItem("Tangent Node", editor, TangentNodeContainer::new));
+        mathNodes.add(trigMathNodes);
+
         mathNodes.add(makeItem("Absolute Node", editor, AbsoluteValueNode::new));
-        mathNodes.add(makeItem("Add Node", editor, AddNodeContainer::new));
-        mathNodes.add(makeItem("Cosine Node", editor, CosineNodeContainer::new));
-        mathNodes.add(makeItem("Divide Node", editor, DivideNodeContainer::new));
-        mathNodes.add(makeItem("Multiply Node", editor, MultiplyNodeContainer::new));
-        mathNodes.add(makeItem("Sine Node", editor, SineNodeContainer::new));
-        mathNodes.add(makeItem("Subtract Node", editor, SubtractNodeContainer::new));
-        mathNodes.add(makeItem("Tangent Node", editor, TangentNodeContainer::new));
-        mathNodes.add(makeItem("Modulo Node", editor, ModuloValueNodeContainer::new));
+        mathNodes.add(makeItem("Random Node", editor, RandomNodeContainer::new));
         mathNodes.add(makeItem("Lerp Node", editor, LerpValueNodeContainer::new));
 
         Menu modifierNodes = new Menu("Modifier Nodes");
         modifierNodes.add(makeItem("Alpha Masking Node", editor, AlphaMaskingNodeContainer::new));
         modifierNodes.add(makeItem("Brightness Node", editor, BrightnessNodeContainer::new));
+        modifierNodes.add(makeItem("Blur Node", editor, BlurNodeContainer::new));
         modifierNodes.add(makeItem("Layering Node", editor, LayeringNodeContainer::new));
         modifierNodes.add(makeItem("Hue Node", editor, HueNodeContainer::new));
         modifierNodes.add(makeItem("Scaling Node", editor, ScalingNodeContainer::new));

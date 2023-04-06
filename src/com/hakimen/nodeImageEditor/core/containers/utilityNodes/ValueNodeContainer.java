@@ -27,7 +27,7 @@ public class ValueNodeContainer extends NodeContainer {
         if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed){
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
                 var str = JOptionPane.showInputDialog("Insert a value for the value node");
-                if(!str.isEmpty()) {
+                if(str != null) {
                     var n = Float.parseFloat(str);
                     if (writerNodes.get(VALUE) instanceof NumberNode node) {
                         node.setValue(n);

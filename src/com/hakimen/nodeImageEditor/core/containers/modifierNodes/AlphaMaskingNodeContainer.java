@@ -16,8 +16,8 @@ public class AlphaMaskingNodeContainer extends NodeContainer {
     public AlphaMaskingNodeContainer(float x, float y) {
         super(x, y, "Alpha Masking Node");
 
-        readerNodes.put(ALPHA_MASK, new ImageNode(this, true, new BufferedImage(1, 1, 2)));
-        readerNodes.put(IMAGE, new ImageNode(this, true, new BufferedImage(1, 1, 2)));
+        readerNodes.put(ALPHA_MASK, new ImageNode(this, true));
+        readerNodes.put(IMAGE, new ImageNode(this, true));
 
         writerNodes.put(OUTPUT, new ImageNode(this, false));
     }
