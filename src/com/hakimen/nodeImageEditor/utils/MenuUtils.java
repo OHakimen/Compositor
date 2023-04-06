@@ -45,6 +45,7 @@ public class MenuUtils {
         modifierNodes.add(makeItem("Alpha Masking Node", editor, AlphaMaskingNodeContainer::new));
         modifierNodes.add(makeItem("Brightness Node", editor, BrightnessNodeContainer::new));
         modifierNodes.add(makeItem("Layering Node", editor, LayeringNodeContainer::new));
+        modifierNodes.add(makeItem("Hue Node", editor, HueNodeContainer::new));
         modifierNodes.add(makeItem("Scaling Node", editor, ScalingNodeContainer::new));
         modifierNodes.add(makeItem("Shape Masking Node", editor, ShapeMaskingNodeContainer::new));
         modifierNodes.add(makeItem("Sub Image Node", editor, SubImageNodeContainer::new));

@@ -1,6 +1,8 @@
 package com.hakimen.nodeImageEditor.utils;
 
-public class Pair<F,S>{
+import java.io.Serializable;
+
+public class Pair<F,S> implements Serializable {
 
     F first;
     S second;

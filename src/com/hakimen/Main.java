@@ -57,9 +57,9 @@ public class Main implements Runnable{
 
 
     private void render(){
+        RenderUtils.SetRenderHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         CameraStack.pushCamera();
         ViewTransformer.update();
-        RenderUtils.SetRenderHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         nodeEditor.render();
         nodeEditor.update();
         CameraStack.popCamera();

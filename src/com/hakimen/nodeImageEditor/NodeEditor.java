@@ -10,32 +10,81 @@ import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 import com.hakimen.nodeImageEditor.core.node.ShapeNode;
+import com.hakimen.nodeImageEditor.core.project.ProjectInstance;
 import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.MenuUtils;
 import com.hakimen.nodeImageEditor.utils.Pair;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
-import javax.management.monitor.MonitorSettingException;
 import javax.swing.*;
-import javax.swing.text.View;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class NodeEditor {
 
 
     static int NodeConnectionRemoveKey = KeyEvent.VK_DELETE;
-    static int ContainerRemoveKey = KeyEvent.VK_DELETE;
-    MenuBar popupMenu = new MenuBar();
+    MenuBar menuBar = new MenuBar();
+    ProjectInstance instance = new ProjectInstance();
+    JFileChooser chooser = new JFileChooser("/");
 
+    String baseTitle = Window.frame.getTitle();
     public NodeEditor(){
-        Menu popup = new Menu("Nodes");
-        MenuUtils.makeMenu(popup,this);
-        popupMenu.add(popup);
-        Window.frame.setMenuBar(popupMenu);
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                return f.toString().contains(".cni") | f.isDirectory();
+            }
+
+            @Override
+            public String getDescription() {
+                return "CNI File";
+            }
+        });
+
+        Menu nodeMenus = new Menu("Nodes");
+        MenuUtils.makeMenu(nodeMenus,this);
+        Menu fileMenus = new Menu("File");
+        var save = new MenuItem("Save");
+        save.addActionListener((a)->{
+            chooser.showSaveDialog(null);
+            instance.setConnections(connections);
+            instance.setContainers(containers);
+            try {
+                File toSave;
+                if(chooser.getSelectedFile().getAbsolutePath().contains(".cni")) {
+                    toSave = new File(chooser.getSelectedFile().getAbsolutePath());
+                }else{
+                    toSave = new File(chooser.getSelectedFile().getAbsolutePath() + ".cni");
+                }
+                Window.frame.setTitle(baseTitle + " - "+ toSave.getName());
+                instance.serialize(toSave);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        fileMenus.add(save);
+        var open = new MenuItem("Open");
+        open.addActionListener((a)->{
+            chooser.showOpenDialog(null);
+            try {
+                instance = instance.deserialize(chooser.getSelectedFile());
+                Window.frame.setTitle(baseTitle + " - "+ chooser.getSelectedFile().getName());
+                this.containers = instance.getContainers();
+                this.connections = instance.getConnections();
+            } catch (Exception ignored) {
+            }
+        });
+        fileMenus.add(open);
+        menuBar.add(fileMenus);
+        menuBar.add(nodeMenus);
+        Window.frame.setMenuBar(menuBar);
     }
 
     public ArrayList<NodeContainer> containers = new ArrayList<>();
