@@ -3,7 +3,9 @@ package com.hakimen.nodeImageEditor.utils;
 import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.ExportNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToHSLContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToRGBContainer;
+import com.hakimen.nodeImageEditor.core.containers.converterNodes.HSLToColorContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.RGBtoColorContainer;
 import com.hakimen.nodeImageEditor.core.containers.mathNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.modifierNodes.*;
@@ -12,6 +14,7 @@ import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RectangleShapeNode
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RoundRectShapeNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.viewNodes.ImageViewNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.viewNodes.ValueViewNodeContainer;
 
 import java.awt.*;
 import java.util.function.BiFunction;
@@ -23,6 +26,8 @@ public class MenuUtils {
         Menu converterNodes = new Menu("Converter Nodes");
         converterNodes.add(makeItem("Color to RGB Node", editor, ColorToRGBContainer::new));
         converterNodes.add(makeItem("RGB to Color Node", editor, RGBtoColorContainer::new));
+        converterNodes.add(makeItem("Color to HLS Node", editor, ColorToHSLContainer::new));
+        converterNodes.add(makeItem("HSL to Color Node", editor, HSLToColorContainer::new));
 
         Menu mathNodes = new Menu("Math Nodes");
         mathNodes.add(makeItem("Absolute Node", editor, AbsoluteValueNode::new));
@@ -33,6 +38,8 @@ public class MenuUtils {
         mathNodes.add(makeItem("Sine Node", editor, SineNodeContainer::new));
         mathNodes.add(makeItem("Subtract Node", editor, SubtractNodeContainer::new));
         mathNodes.add(makeItem("Tangent Node", editor, TangentNodeContainer::new));
+        mathNodes.add(makeItem("Modulo Node", editor, ModuloValueNodeContainer::new));
+        mathNodes.add(makeItem("Lerp Node", editor, LerpValueNodeContainer::new));
 
         Menu modifierNodes = new Menu("Modifier Nodes");
         modifierNodes.add(makeItem("Alpha Masking Node", editor, AlphaMaskingNodeContainer::new));
@@ -42,6 +49,8 @@ public class MenuUtils {
         modifierNodes.add(makeItem("Sub Image Node", editor, SubImageNodeContainer::new));
         modifierNodes.add(makeItem("Tint Node", editor, TintNodeContainer::new));
         modifierNodes.add(makeItem("Fill Shape Node", editor, FillShapeNodeContainer::new));
+        modifierNodes.add(makeItem("Invert Node", editor, InvertNodeContainer::new));
+        modifierNodes.add(makeItem("Threshold Node", editor, ThresholdNodeContainer::new));
 
         Menu shapeNodes = new Menu("Shape Nodes");
         shapeNodes.add(makeItem("Oval Node",editor, OvalShapeNodeContainer::new));
@@ -56,6 +65,7 @@ public class MenuUtils {
 
         Menu viewNodes = new Menu("View Nodes");
         viewNodes.add(makeItem("Image View Node", editor, ImageViewNodeContainer::new));
+        viewNodes.add(makeItem("Value View Node", editor, ValueViewNodeContainer::new));
 
         menu.add(converterNodes);
         menu.add(mathNodes);

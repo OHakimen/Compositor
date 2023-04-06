@@ -12,7 +12,7 @@ public class ColorToRGBContainer extends NodeContainer {
     static final String R = "R", G = "G", B = "B", COLOR = "Color";
 
     public ColorToRGBContainer(float x, float y) {
-        super(x, y, "RGB to Color Node");
+        super(x, y, "Color to RGB Node");
 
         writerNodes.put(R, new NumberNode(this, false, 0));
         writerNodes.put(G, new NumberNode(this, false, 0));

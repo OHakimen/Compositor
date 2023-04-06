@@ -10,9 +10,11 @@ import java.awt.image.BufferedImage;
 public class ImageViewNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
+    static final String OUTPUT = "Output Image";
     public ImageViewNodeContainer(float x, float y) {
-        super(x, y, "Image Node View");
+        super(x, y, "Image View Node");
         readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
+        writerNodes.put(OUTPUT,new ImageNode(this,true, new BufferedImage(1,1,2)));
     }
 
     @Override
@@ -27,4 +29,12 @@ public class ImageViewNodeContainer extends NodeContainer {
         }
     }
 
+    @Override
+    public void update() {
+        super.update();
+        if (readerNodes.get(IMAGE) instanceof ImageNode node &&
+            writerNodes.get(OUTPUT) instanceof ImageNode out) {
+            out.setValue(node.getValue());
+        }
+    }
 }
