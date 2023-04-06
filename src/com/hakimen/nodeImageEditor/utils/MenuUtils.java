@@ -43,6 +43,7 @@ public class MenuUtils {
 
         Menu modifierNodes = new Menu("Modifier Nodes");
         modifierNodes.add(makeItem("Alpha Masking Node", editor, AlphaMaskingNodeContainer::new));
+        modifierNodes.add(makeItem("Brightness Node", editor, BrightnessNodeContainer::new));
         modifierNodes.add(makeItem("Layering Node", editor, LayeringNodeContainer::new));
         modifierNodes.add(makeItem("Scaling Node", editor, ScalingNodeContainer::new));
         modifierNodes.add(makeItem("Shape Masking Node", editor, ShapeMaskingNodeContainer::new));
@@ -51,6 +52,8 @@ public class MenuUtils {
         modifierNodes.add(makeItem("Fill Shape Node", editor, FillShapeNodeContainer::new));
         modifierNodes.add(makeItem("Invert Node", editor, InvertNodeContainer::new));
         modifierNodes.add(makeItem("Threshold Node", editor, ThresholdNodeContainer::new));
+        modifierNodes.add(makeItem("Translate Node", editor, TranslanteNodeContainer::new));
+        modifierNodes.add(makeItem("Rotate Node", editor, RotateNodeContainer::new));
 
         Menu shapeNodes = new Menu("Shape Nodes");
         shapeNodes.add(makeItem("Oval Node",editor, OvalShapeNodeContainer::new));

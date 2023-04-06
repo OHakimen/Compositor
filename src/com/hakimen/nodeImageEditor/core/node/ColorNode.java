@@ -6,11 +6,14 @@ import com.hakimen.nodeImageEditor.core.NodeContainer;
 import java.awt.*;
 
 public class ColorNode extends Node<Color> {
+
     public ColorNode(NodeContainer container, boolean isReader, Color value) {
         super(container, isReader, value);
+        setNodeColor(Color.WHITE);
     }
 
     public ColorNode(NodeContainer container, boolean isReader) {
         super(container, isReader);
+        setNodeColor(Color.WHITE);
     }
 }

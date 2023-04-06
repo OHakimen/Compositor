@@ -18,6 +18,16 @@ public class RenderUtils {
         g.setClip(s);
     }
 
+    public static void DrawShape(Shape s,Color color){
+        g.setColor(color);
+        g.draw(s);
+    }
+
+    public static void FillShape(Shape s,Color color){
+        g.setColor(color);
+        g.fill(s);
+    }
+
     public static void Translate(int dx,int dy){
         g.translate(dx,dy);
     }

@@ -21,6 +21,7 @@ import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 
 public class NodeEditor {
@@ -59,7 +60,7 @@ public class NodeEditor {
                 }
             }
 
-            if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !borderClicked){
+            if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !borderClicked && currentNode == null){
                 if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x,container.y,container.sx,40)){
                     borderClicked = true;
                     clickedContainer = container;
@@ -149,7 +150,22 @@ public class NodeEditor {
     }
 
     public void render(){
+        if(currentNode!= null){
+            float fnodeX = 0,fnodeY = 0;
+            if(currentNode.isReader()){
+                fnodeX = currentNode.getContainer().x - 2;
+                fnodeY = currentNode.getContainer().y + (currentNode.getContainer().readerNodes.values().stream().toList().indexOf(currentNode)-1) * 24 + 96;
 
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-64,fnodeY+2,ViewTransformer.transformedMouseX + 64,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
+                RenderUtils.DrawShape(shape,currentNode.getNodeColor());
+            }else{
+                fnodeX = currentNode.getContainer().x + currentNode.getContainer().sx - 2;
+                fnodeY = currentNode.getContainer().y + (currentNode.getContainer().writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
+
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+128,fnodeY+2,ViewTransformer.transformedMouseX - 128,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
+                RenderUtils.DrawShape(shape,currentNode.getNodeColor());
+            }
+        }
         for (var pair:connections) {
             float fnodeX = 0,fnodeY = 0;
             float snodeX = 0,snodeY = 0;
@@ -161,6 +177,7 @@ public class NodeEditor {
             }else{
                 fnodeX = pair.getFirst().getContainer().x - 2;
                 fnodeY = pair.getFirst().getContainer().y + (pair.getFirst().getContainer().readerNodes.values().stream().toList().indexOf(pair.getFirst())-1) * 24 + 96;
+
             }
 
             if(!pair.getSecond().isReader()){
@@ -170,7 +187,14 @@ public class NodeEditor {
                 snodeX = pair.getSecond().getContainer().x - 2;
                 snodeY = pair.getSecond().getContainer().y + (pair.getSecond().getContainer().readerNodes.values().stream().toList().indexOf(pair.getSecond())-1) * 24 + 96;
             }
-            RenderUtils.DrawLine(fnodeX+2,fnodeY+2,snodeX+2,snodeY+2,Color.RED);
+            if(pair.getFirst().isReader()){
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-128,fnodeY+2,snodeX + 128,snodeY+2,snodeX+2,snodeY+2);
+                RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
+            }else if(pair.getSecond().isReader()){
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+128,fnodeY+2,snodeX - 128,snodeY+2,snodeX+2,snodeY+2);
+                RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
+            }
+
         }
         for (int i = 0; i < containers.size(); i++) {
             var container = containers.get(i);

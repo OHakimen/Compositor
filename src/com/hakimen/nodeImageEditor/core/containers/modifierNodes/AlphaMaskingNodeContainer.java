@@ -41,7 +41,7 @@ public class AlphaMaskingNodeContainer extends NodeContainer {
             if (Window.ticks % 20 == 0 && mask.getValue() != null && image.getValue() != null){
 
                 int[] imagePixels = image.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
-                int[] maskPixels = mask.getValue().getRGB(0, 0, mask.getValue().getWidth(), mask.getValue().getHeight(), null, 0, mask.getValue().getWidth());
+                int[] maskPixels = mask.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
 
                 for (int i = 0; i < imagePixels.length; i++) {
                     int color = imagePixels[i] & 0x00ffffff; // Mask preexisting alpha

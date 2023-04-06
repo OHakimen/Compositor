@@ -6,19 +6,19 @@ import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
-import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
-public class ThresholdNodeContainer extends NodeContainer {
+public class BrightnessNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
-    static final String THRESHOLD = "Threshold";
+    static final String BRIGHTNESS = "Brightness";
     static final String OUTPUT = "Output Image";
-    public ThresholdNodeContainer(float x, float y) {
-        super(x, y, "Threshold Node");
+    public BrightnessNodeContainer(float x, float y) {
+        super(x, y, "Brightness Node");
         readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
-        readerNodes.put(THRESHOLD,new NumberNode(this,true, 0));
+        readerNodes.put(BRIGHTNESS,new NumberNode(this,true, 0));
         writerNodes.put(OUTPUT,new ImageNode(this,false, new BufferedImage(1,1,2)));
     }
 
@@ -38,22 +38,12 @@ public class ThresholdNodeContainer extends NodeContainer {
     public void update() {
         super.update();
         if (readerNodes.get(IMAGE) instanceof ImageNode node &&
-            readerNodes.get(THRESHOLD) instanceof NumberNode threshold &&
+            readerNodes.get(BRIGHTNESS) instanceof NumberNode bright &&
             writerNodes.get(OUTPUT) instanceof ImageNode out) {
             if(node.getValue() != null && Window.ticks % 20 == 0) {
                 var buff = new BufferedImage(node.getValue().getWidth(),node.getValue().getHeight(),2);
-                for (int x = 0; x < node.getValue().getWidth(); x++) {
-                    for (int y = 0; y < node.getValue().getHeight(); y++) {
-                        int rgba = node.getValue().getRGB(x, y);
-                        Color col = new Color(rgba, true);
-                        var grayscale = (col.getBlue() + col.getRed() + col.getGreen()) / 3;
-                        if(grayscale <= threshold.getValue().floatValue()){
-                            buff.setRGB(x,y,Color.BLACK.getRGB());
-                        }else if(grayscale > threshold.getValue().floatValue()){
-                            buff.setRGB(x,y,Color.WHITE.getRGB());
-                        }
-                    }
-                }
+                RescaleOp op = new RescaleOp(bright.getValue().floatValue(), 0, null);
+                buff = op.filter(node.getValue(),buff);
                 out.setValue(buff);
             }
         }

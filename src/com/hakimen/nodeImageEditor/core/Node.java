@@ -1,8 +1,12 @@
 package com.hakimen.nodeImageEditor.core;
 
+import java.awt.*;
+
 public class Node<T> {
     boolean isReader;
     T value;
+
+    Color nodeColor;
     NodeContainer container;
 
     public NodeContainer getContainer() {
@@ -38,5 +42,13 @@ public class Node<T> {
 
     public void setReader(boolean reader) {
         isReader = reader;
+    }
+
+    public Color getNodeColor() {
+        return nodeColor;
+    }
+
+    public void setNodeColor(Color nodeColor) {
+        this.nodeColor = nodeColor;
     }
 }
