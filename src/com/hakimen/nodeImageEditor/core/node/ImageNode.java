@@ -14,6 +14,7 @@ public class ImageNode extends Node<BufferedImage> {
 
     public ImageNode(NodeContainer container, boolean isReader) {
         super(container, isReader);
+        setValue(new BufferedImage(1,1,2));
         setNodeColor(Color.cyan);
     }
 }

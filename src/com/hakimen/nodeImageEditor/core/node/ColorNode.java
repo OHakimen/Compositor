@@ -14,6 +14,7 @@ public class ColorNode extends Node<Color> {
 
     public ColorNode(NodeContainer container, boolean isReader) {
         super(container, isReader);
+        setValue(Color.WHITE);
         setNodeColor(Color.WHITE);
     }
 }

@@ -13,6 +13,7 @@ public class NumberNode extends Node<Number> {
 
     public NumberNode(NodeContainer container, boolean isReader) {
         super(container, isReader);
+        setValue(0f);
         setNodeColor(Color.GREEN);
     }
 }

@@ -5,19 +5,37 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
 
-public class NodeContainer{
+public class NodeContainer implements Serializable{
     public float x,y,sx,sy;
     public String name;
+    public UUID uuid;
     public Map<String,Node<?>> readerNodes = new LinkedHashMap<>();
     public Map<String,Node<?>> writerNodes = new LinkedHashMap<>();
 
     public NodeContainer(float x, float y, String name) {
         this.x = x;
         this.y = y;
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.sx = name.length() * 8 + 64;
     }
 
+    public NodeContainer(float x, float y, String name, UUID uuid) {
+        this.x = x;
+        this.y = y;
+        this.name = name;
+        this.uuid = uuid;
+        this.sx = name.length() * 8 + 64;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public NodeContainer setUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
 
     public void render(){
         RenderUtils.FillRoundedRect(x,y,sx,sy, 16f,16f, Color.DARK_GRAY);

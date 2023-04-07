@@ -45,7 +45,7 @@ public class MenuUtils {
         trigMathNodes.add(makeItem("Tangent Node", editor, TangentNodeContainer::new));
         mathNodes.add(trigMathNodes);
 
-        mathNodes.add(makeItem("Absolute Node", editor, AbsoluteValueNode::new));
+        mathNodes.add(makeItem("Absolute Node", editor, AbsoluteValueNodeContainer::new));
         mathNodes.add(makeItem("Random Node", editor, RandomNodeContainer::new));
         mathNodes.add(makeItem("Lerp Node", editor, LerpValueNodeContainer::new));
 
@@ -92,7 +92,8 @@ public class MenuUtils {
     static MenuItem makeItem(String name, NodeEditor editor, BiFunction<Float,Float,NodeContainer> container){
         var item = new MenuItem(name);
         item.addActionListener((e)->{
-            editor.containers.add(container.apply((float) ViewTransformer.transformedMouseX,(float)ViewTransformer.transformedMouseY));
+            NodeContainer toSet = container.apply((float) ViewTransformer.transformedMouseX,(float)ViewTransformer.transformedMouseY);
+            editor.containers.add(new Pair<>(toSet.uuid,toSet));
         });
         return item;
     }

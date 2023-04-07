@@ -3,12 +3,12 @@ package com.hakimen.nodeImageEditor.core.containers.mathNodes;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
-public class AbsoluteValueNode extends NodeContainer {
+public class AbsoluteValueNodeContainer extends NodeContainer {
 
     final static String VALUE = "Value";
     final static String OUTPUT = "Output Value";
 
-    public AbsoluteValueNode(float x, float y) {
+    public AbsoluteValueNodeContainer(float x, float y) {
         super(x, y, "Abs Node");
         readerNodes.put(VALUE, new NumberNode(this,true, 0f));
         writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));

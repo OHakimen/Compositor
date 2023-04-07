@@ -10,6 +10,7 @@ import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 import com.hakimen.nodeImageEditor.core.node.ShapeNode;
+import com.hakimen.nodeImageEditor.core.project.Project;
 import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.MenuUtils;
 import com.hakimen.nodeImageEditor.utils.Pair;
@@ -23,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class NodeEditor {
 
@@ -30,11 +33,14 @@ public class NodeEditor {
     static int NodeConnectionRemoveKey = KeyEvent.VK_DELETE;
     MenuBar menuBar = new MenuBar();
     JFileChooser chooser = new JFileChooser("/");
+
+    Project project = new Project();
+    String baseTitle = Window.frame.getTitle();
     public NodeEditor(){
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return f.toString().contains(".cni") | f.isDirectory();
+                return f.toString().contains(".cnp") | f.isDirectory();
             }
 
             @Override
@@ -46,12 +52,45 @@ public class NodeEditor {
         Menu nodeMenus = new Menu("Nodes");
         MenuUtils.makeMenu(nodeMenus,this);
         Menu fileMenus = new Menu("File");
+        var save = new MenuItem("Save Project");
+        save.addActionListener((a)->{
+            project = new Project(containers,connections);
+            chooser.showSaveDialog(null);
+            if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
+                File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
+                project.serialize(f);
+                baseTitle += " - " + f.getName();
+            }else{
+                project.serialize(chooser.getSelectedFile());
+                baseTitle += " - " + chooser.getSelectedFile().getName();
+            }
+
+        });
+        fileMenus.add(save);
+        var open = new MenuItem("Open Project");
+
+        open.addActionListener((a)->{
+            chooser.showOpenDialog(null);
+            if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
+                File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
+                project = Project.deserialize(f);
+                baseTitle += " - " + f.getName();
+            }else{
+                project = Project.deserialize(chooser.getSelectedFile());
+                baseTitle += " - " + chooser.getSelectedFile().getName();
+            }
+            project.loadProject(this);
+        });
+
+        fileMenus.add(save);
+        fileMenus.add(open);
+
         menuBar.add(fileMenus);
         menuBar.add(nodeMenus);
         Window.frame.setMenuBar(menuBar);
     }
 
-    public ArrayList<NodeContainer> containers = new ArrayList<>();
+    public ArrayList<Pair<UUID,NodeContainer>> containers = new ArrayList<>();
     public boolean borderClicked;
 
     public Node<?> currentNode;
@@ -60,7 +99,7 @@ public class NodeEditor {
     public void update(){
 
         for(int j = 0; j < containers.size(); j++){
-            NodeContainer container = containers.get(j);
+            NodeContainer container = containers.get(j).getSecond();
             if(Keyboard.keys[NodeConnectionRemoveKey].pressed && Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x,container.y,container.sx,40)){
                 containers.remove(j);
                 for (int i = 0; i < connections.size(); i++) {
@@ -210,7 +249,7 @@ public class NodeEditor {
 
         }
         for (int i = 0; i < containers.size(); i++) {
-            var container = containers.get(i);
+            var container = containers.get(i).getSecond();
             container.render();
         }
     }
