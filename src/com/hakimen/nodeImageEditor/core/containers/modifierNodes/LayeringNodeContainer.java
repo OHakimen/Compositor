@@ -19,12 +19,12 @@ public class LayeringNodeContainer extends NodeContainer {
     static final String OUTPUT = "Output Image";
     public LayeringNodeContainer(float x, float y) {
         super(x, y, "Layering Node");
-        readerNodes.put(LAYER, new ImageNode(this,true));
-        readerNodes.put(BASE, new ImageNode(this,true));
-        readerNodes.put(X, new NumberNode(this,true, 0));
-        readerNodes.put(Y, new NumberNode(this,true, 0));
+        readerNodes.put(LAYER, new ImageNode(uuid,true));
+        readerNodes.put(BASE, new ImageNode(uuid,true));
+        readerNodes.put(X, new NumberNode(uuid,true, 0));
+        readerNodes.put(Y, new NumberNode(uuid,true, 0));
 
-        writerNodes.put(OUTPUT, new ImageNode(this,false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
 
     @Override

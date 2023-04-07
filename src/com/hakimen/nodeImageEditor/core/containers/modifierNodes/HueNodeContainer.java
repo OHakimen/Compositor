@@ -19,11 +19,11 @@ public class HueNodeContainer extends NodeContainer {
 
     public HueNodeContainer(float x, float y) {
         super(x, y, "Hue Node");
-        readerNodes.put(IMAGE, new ImageNode(this, true, new BufferedImage(1, 1, 2)));
-        readerNodes.put(HUE, new NumberNode(this, true, 0));
-        readerNodes.put(SATURATION, new NumberNode(this, true, 0));
-        readerNodes.put(LUMINANCE, new NumberNode(this, true, 0));
-        writerNodes.put(OUTPUT, new ImageNode(this, false, new BufferedImage(1, 1, 2)));
+        readerNodes.put(IMAGE, new ImageNode(uuid, true, new BufferedImage(1, 1, 2)));
+        readerNodes.put(HUE, new NumberNode(uuid, true, 0));
+        readerNodes.put(SATURATION, new NumberNode(uuid, true, 0));
+        readerNodes.put(LUMINANCE, new NumberNode(uuid, true, 0));
+        writerNodes.put(OUTPUT, new ImageNode(uuid, false, new BufferedImage(1, 1, 2)));
     }
 
     @Override

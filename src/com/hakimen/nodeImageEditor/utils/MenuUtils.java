@@ -93,7 +93,7 @@ public class MenuUtils {
         var item = new MenuItem(name);
         item.addActionListener((e)->{
             NodeContainer toSet = container.apply((float) ViewTransformer.transformedMouseX,(float)ViewTransformer.transformedMouseY);
-            editor.containers.add(new Pair<>(toSet.uuid,toSet));
+            editor.containers.put(toSet.uuid,toSet);
         });
         return item;
     }

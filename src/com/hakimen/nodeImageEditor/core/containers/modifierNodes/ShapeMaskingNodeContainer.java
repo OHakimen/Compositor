@@ -17,10 +17,10 @@ public class ShapeMaskingNodeContainer extends NodeContainer {
     public ShapeMaskingNodeContainer(float x, float y) {
         super(x, y, "Shape Masking Node");
 
-        readerNodes.put(SHAPE,new ShapeNode(this,true, new Rectangle2D.Float(0,0,0,0)));
-        readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
+        readerNodes.put(SHAPE,new ShapeNode(uuid,true, new Rectangle2D.Float(0,0,0,0)));
+        readerNodes.put(IMAGE,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
 
-        writerNodes.put(OUTPUT,new ImageNode(this,false));
+        writerNodes.put(OUTPUT,new ImageNode(uuid,false));
     }
 
     @Override

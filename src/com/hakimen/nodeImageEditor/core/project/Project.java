@@ -3,39 +3,56 @@ package com.hakimen.nodeImageEditor.core.project;
 import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.Node;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
-import com.hakimen.nodeImageEditor.core.node.ImageNode;
+import com.hakimen.nodeImageEditor.core.node.*;
 import com.hakimen.nodeImageEditor.utils.Pair;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class Project implements Serializable {
     ArrayList<SContainerData> containersData = new ArrayList<>();
     ArrayList<SConnectionData> consData = new ArrayList<>();
 
-    public Project(ArrayList<Pair<UUID, NodeContainer>> containers, ArrayList<Pair<Node<?>, Node<?>>> connections) {
-        for (Pair<UUID, NodeContainer> uuidNodeContainerPair : containers) {
-            var containerUUID = uuidNodeContainerPair.getFirst();
-            var container = uuidNodeContainerPair.getSecond();
+    public Project(Map<UUID, NodeContainer> containers, ArrayList<Pair<Node<?>, Node<?>>> connections) {
+        containers.forEach((k,v)->{
 
-            var containerInstance = new SContainerData(container.x, container.y, containerUUID, container.getClass());
-            var writers = container.writerNodes;
-            for (int i = 0; i < writers.values().size(); i++) {
-                var writerValue = writers.values().stream().toList().get(i);
-                var writerKey = writers.keySet().stream().toList().get(i);
-                if(!(writerValue instanceof ImageNode)){
-                    containerInstance.writerNodes.put(writerKey,writerValue);
+            var containerInstance = new SContainerData(v.x, v.y, k, v.getClass());
+            var writers = v.writerNodes;
+            Node[] writerNodeArr = new Node[writers.size()];
+            String[] writerStrArr = new String[writers.size()];
+            writers.values().stream().toList().toArray(writerNodeArr);
+            writers.keySet().stream().toList().toArray(writerStrArr);
+
+            for (int i = 0; i < writerStrArr.length; i++) {
+                if(writerNodeArr[i] instanceof ImageNode){
+                    containerInstance.writerNodes.put(writerStrArr[i],new PlaceholderNode(v.uuid,false));
+                }else{
+                    containerInstance.writerNodes.put(writerStrArr[i],writerNodeArr[i]);
+                }
+            }
+
+            var reader =v.readerNodes;
+            Node[] readerNodeArr = new Node[reader.size()];
+            String[] readerStrArr = new String[reader.size()];
+            reader.values().stream().toList().toArray(readerNodeArr);
+            reader.keySet().stream().toList().toArray(readerStrArr);
+
+            for (int i = 0; i < readerStrArr.length; i++) {
+                if(readerNodeArr[i] instanceof ImageNode){
+                    containerInstance.readerNodes.put(readerStrArr[i],new PlaceholderNode(v.uuid,false));
+                }else{
+                    containerInstance.readerNodes.put(readerStrArr[i],readerNodeArr[i]);
                 }
             }
             containersData.add(containerInstance);
-        }
+        });
+            
 
         for (Pair<Node<?>, Node<?>> connection : connections) {
-            var containerFirst = connection.getFirst().getContainer();
-            var containerSecond = connection.getSecond().getContainer();
+
+            var containerFirst = containers.get(connection.getFirst().getContainer());
+            var containerSecond = containers.get(connection.getSecond().getContainer());
             var nodeFirst = connection.getFirst();
             var nodeSecond = connection.getSecond();
 
@@ -80,14 +97,27 @@ public class Project implements Serializable {
     }
 
     public void loadProject(NodeEditor editor){
-        var containers = new ArrayList<Pair<UUID,NodeContainer>>();
+        var containers = new LinkedHashMap<UUID,NodeContainer>();
         var connections = new ArrayList<Pair<Node<?>,Node<?>>>();
         containersData.forEach((conData)->{
             try{
-                var instance = (NodeContainer) conData.type.getConstructors()[0].newInstance(conData.x,conData.y);
-                instance.setUuid(conData.uuid);
-                instance.writerNodes = conData.writerNodes;
-                containers.add(new Pair<>(instance.uuid,instance));
+                var temp = (NodeContainer) (conData.type.getConstructors()[0].newInstance(conData.x,conData.y));
+                NodeContainer instance = temp.setUuid(conData.uuid);
+                conData.writerNodes.forEach((k,v)->{
+                    if(v instanceof PlaceholderNode){
+                        instance.writerNodes.put(k, new ImageNode(instance.uuid,false, new BufferedImage(1,1,2)));
+                    }else{
+                        instance.writerNodes.put(k,v);
+                    }
+                });
+                conData.readerNodes.forEach((k,v)->{
+                    if(v instanceof PlaceholderNode){
+                        instance.readerNodes.put(k, new ImageNode(instance.uuid,true, new BufferedImage(1,1,2)));
+                    }else{
+                        instance.readerNodes.put(k,v);
+                    }
+                });
+                containers.put(instance.uuid,instance);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -98,13 +128,14 @@ public class Project implements Serializable {
             NodeContainer first = null;
             NodeContainer second = null;
             for(int i = 0; i < containers.size(); i++) {
-                var cont = containers.get(i);
-                if(cont.getFirst() != null){
-                    if(cont.getFirst().equals(con.getFirst()) && first == null && cont.getSecond().getUuid() == con.getFirst()){
-                        first = cont.getSecond();
+                var key = containers.keySet().stream().toList().get(i);
+                var value = containers.values().stream().toList().get(i);
+                if(key != null){
+                    if(key.equals(con.getFirst()) && first == null && value.getUuid() == con.getFirst()){
+                        first = value;
                     }
-                    if(cont.getFirst().equals(con.getSecond()) && second == null && cont.getSecond().getUuid() == con.getSecond()){
-                        second = cont.getSecond();
+                    if(key.equals(con.getSecond()) && second == null && value.getUuid() == con.getSecond()){
+                        second = value;
                     }
                 }
             }

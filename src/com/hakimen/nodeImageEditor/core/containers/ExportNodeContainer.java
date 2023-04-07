@@ -23,7 +23,7 @@ public class ExportNodeContainer extends NodeContainer {
     JFileChooser chooser = new JFileChooser("/");
     public ExportNodeContainer(float x, float y) {
         super(x, y, "Export Node");
-        readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
+        readerNodes.put(IMAGE,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
     }
 
     @Override

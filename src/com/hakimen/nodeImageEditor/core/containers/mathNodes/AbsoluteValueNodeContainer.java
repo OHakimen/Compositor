@@ -10,8 +10,8 @@ public class AbsoluteValueNodeContainer extends NodeContainer {
 
     public AbsoluteValueNodeContainer(float x, float y) {
         super(x, y, "Abs Node");
-        readerNodes.put(VALUE, new NumberNode(this,true, 0f));
-        writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));
+        readerNodes.put(VALUE, new NumberNode(uuid,true, 0f));
+        writerNodes.put(OUTPUT, new NumberNode(uuid,false, 0f));
     }
 
 

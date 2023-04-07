@@ -17,7 +17,7 @@ public class ColorNodeContainer extends NodeContainer {
     public ColorNodeContainer(float x, float y) {
         super(x, y, "Color Node");
         this.sx = name.length() * 8 + (4*32);
-        writerNodes.put(COLOR, new ColorNode(this,false,Color.WHITE));
+        writerNodes.put(COLOR, new ColorNode(uuid,false,Color.WHITE));
     }
 
 

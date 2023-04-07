@@ -11,10 +11,10 @@ public class MultiplyNodeContainer extends NodeContainer {
 
     public MultiplyNodeContainer(float x, float y) {
         super(x, y, "Multiply Node");
-        readerNodes.put(FIRST_VALUE, new NumberNode(this,true, 0f));
-        readerNodes.put(SECOND_VALUE, new NumberNode(this,true, 0f));
+        readerNodes.put(FIRST_VALUE, new NumberNode(uuid,true, 0f));
+        readerNodes.put(SECOND_VALUE, new NumberNode(uuid,true, 0f));
 
-        writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));
+        writerNodes.put(OUTPUT, new NumberNode(uuid,false, 0f));
     }
 
 

@@ -17,9 +17,9 @@ public class TintNodeContainer extends NodeContainer {
 
     public TintNodeContainer(float x, float y) {
         super(x, y, "Tint Node");
-        readerNodes.put(IMAGE, new ImageNode(this,true));
-        readerNodes.put(COLOR, new ColorNode(this,true, Color.white));
-        writerNodes.put(OUTPUT, new ImageNode(this,false));
+        readerNodes.put(IMAGE, new ImageNode(uuid,true));
+        readerNodes.put(COLOR, new ColorNode(uuid,true, Color.white));
+        writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
 
     @Override

@@ -21,14 +21,14 @@ public class RoundRectShapeNodeContainer extends NodeContainer {
     public RoundRectShapeNodeContainer(float x, float y) {
         super(x, y, "Round Rectangle Shape Node");
 
-        readerNodes.put(X, new NumberNode(this, true, 0));
-        readerNodes.put(Y, new NumberNode(this, true, 0));
-        readerNodes.put(WIDTH, new NumberNode(this, true, 0));
-        readerNodes.put(HEIGHT, new NumberNode(this, true, 0));
-        readerNodes.put(ARC_WIDTH, new NumberNode(this, true, 0));
-        readerNodes.put(ARC_HEIGHT, new NumberNode(this, true, 0));
+        readerNodes.put(X, new NumberNode(uuid, true, 0));
+        readerNodes.put(Y, new NumberNode(uuid, true, 0));
+        readerNodes.put(WIDTH, new NumberNode(uuid, true, 0));
+        readerNodes.put(HEIGHT, new NumberNode(uuid, true, 0));
+        readerNodes.put(ARC_WIDTH, new NumberNode(uuid, true, 0));
+        readerNodes.put(ARC_HEIGHT, new NumberNode(uuid, true, 0));
 
-        writerNodes.put(OUTPUT, new ShapeNode(this, false, new RoundRectangle2D.Float(0, 0, 0, 0,0,0)));
+        writerNodes.put(OUTPUT, new ShapeNode(uuid, false, new RoundRectangle2D.Float(0, 0, 0, 0,0,0)));
     }
 
     @Override

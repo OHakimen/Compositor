@@ -13,9 +13,19 @@ import java.util.UUID;
 public class SContainerData implements Serializable {
     float x,y;
     UUID uuid;
-    Class<?> type;
+    Class<? extends NodeContainer> type;
 
     public Map<String,Node<?>> writerNodes = new LinkedHashMap<>();
+    public Map<String,Node<?>> readerNodes = new LinkedHashMap<>();
+
+    public Map<String, Node<?>> getReaderNodes() {
+        return readerNodes;
+    }
+
+    public SContainerData setReaderNodes(Map<String, Node<?>> readerNodes) {
+        this.readerNodes = readerNodes;
+        return this;
+    }
 
     public Map<String, Node<?>> getWriterNodes() {
         return writerNodes;
@@ -26,7 +36,7 @@ public class SContainerData implements Serializable {
         return this;
     }
 
-    public SContainerData(float x, float y, UUID uuid, Class<?> type) {
+    public SContainerData(float x, float y, UUID uuid, Class<? extends NodeContainer> type) {
         this.x = x;
         this.y = y;
         this.uuid = uuid;
@@ -57,11 +67,11 @@ public class SContainerData implements Serializable {
         this.uuid = uuid;
     }
 
-    public Class<?> getType() {
+    public Class<?extends NodeContainer> getType() {
         return type;
     }
 
-    public void setType(Class<?> type) {
+    public void setType(Class<?extends NodeContainer> type) {
         this.type = type;
     }
 }

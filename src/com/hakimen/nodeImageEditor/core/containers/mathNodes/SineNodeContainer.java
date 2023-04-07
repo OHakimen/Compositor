@@ -10,8 +10,8 @@ public class SineNodeContainer extends NodeContainer {
 
     public SineNodeContainer(float x, float y) {
         super(x, y, "Sine Node");
-        readerNodes.put(FIRST_VALUE, new NumberNode(this,true, 0f));
-        writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));
+        readerNodes.put(FIRST_VALUE, new NumberNode(uuid,true, 0f));
+        writerNodes.put(OUTPUT, new NumberNode(uuid,false, 0f));
     }
 
 

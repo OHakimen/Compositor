@@ -60,8 +60,8 @@ public class Main implements Runnable{
         RenderUtils.SetRenderHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         CameraStack.pushCamera();
         ViewTransformer.update();
-        nodeEditor.render();
         nodeEditor.update();
+        nodeEditor.render();
         CameraStack.popCamera();
     }
     private void shader(int[] buffer){

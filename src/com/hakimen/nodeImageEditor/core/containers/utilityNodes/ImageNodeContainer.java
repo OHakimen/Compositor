@@ -15,6 +15,7 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ImageNodeContainer extends NodeContainer {
@@ -26,9 +27,9 @@ public class ImageNodeContainer extends NodeContainer {
     public ImageNodeContainer(float x, float y) {
         super(x, y, "Image Node");
         this.sx = name.length() * 8 + (4*32);
-        writerNodes.put(IMAGE, new ImageNode(this,false));
-        writerNodes.put(WIDTH, new NumberNode(this,false,0));
-        writerNodes.put(HEIGHT, new NumberNode(this,false,0));
+        writerNodes.put(IMAGE, new ImageNode(uuid,false, new BufferedImage(1,1,2)));
+        writerNodes.put(WIDTH, new NumberNode(uuid,false,0));
+        writerNodes.put(HEIGHT, new NumberNode(uuid,false,0));
     }
 
 

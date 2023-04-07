@@ -16,9 +16,9 @@ public class RandomNodeContainer extends NodeContainer {
     public RandomNodeContainer(float x, float y) {
         super(x, y, "Random Node");
         sx += 16;
-        readerNodes.put(LOWEST_VALUE, new NumberNode(this,true, 0f));
-        readerNodes.put(HIGHEST_VALUE, new NumberNode(this,true, 1f));
-        writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));
+        readerNodes.put(LOWEST_VALUE, new NumberNode(uuid,true, 0f));
+        readerNodes.put(HIGHEST_VALUE, new NumberNode(uuid,true, 1f));
+        writerNodes.put(OUTPUT, new NumberNode(uuid,false, 0f));
     }
 
 

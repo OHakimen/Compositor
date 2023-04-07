@@ -14,7 +14,7 @@ public class ClockNodeContainer extends NodeContainer {
     public ClockNodeContainer(float x, float y) {
         super(x, y, "Clock Node");
 
-        writerNodes.put(OUTPUT,new NumberNode(this,false, 0));
+        writerNodes.put(OUTPUT,new NumberNode(uuid,false, 0));
     }
 
     @Override

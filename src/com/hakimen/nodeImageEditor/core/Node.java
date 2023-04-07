@@ -2,29 +2,30 @@ package com.hakimen.nodeImageEditor.core;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Node<T> implements Serializable{
     boolean isReader;
     T value;
 
     Color nodeColor;
-    NodeContainer container;
+    UUID container;
 
-    public NodeContainer getContainer() {
+    public UUID getContainer() {
         return container;
     }
 
-    public void setContainer(NodeContainer container) {
+    public void setContainer(UUID container) {
         this.container = container;
     }
 
-    public Node(NodeContainer container, boolean isReader, T value) {
+    public Node(UUID container, boolean isReader, T value) {
         this.container = container;
         this.isReader = isReader;
         this.value = value;
     }
 
-    public Node(NodeContainer container,boolean isReader) {
+    public Node(UUID container,boolean isReader) {
         this.container = container;
         this.isReader = isReader;
     }

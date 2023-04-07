@@ -17,7 +17,7 @@ public class ValueNodeContainer extends NodeContainer {
     public ValueNodeContainer(float x, float y) {
         super(x, y, "Value Node");
         this.sx = name.length() * 8 + (4*32);
-        writerNodes.put(VALUE, new NumberNode(this,false,0));
+        writerNodes.put(VALUE, new NumberNode(uuid,false,0));
     }
 
 

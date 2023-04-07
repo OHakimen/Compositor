@@ -10,8 +10,8 @@ public class TangentNodeContainer extends NodeContainer {
 
     public TangentNodeContainer(float x, float y) {
         super(x, y, "Tangent Node");
-        readerNodes.put(VALUE, new NumberNode(this,true, 0f));
-        writerNodes.put(OUTPUT, new NumberNode(this,false, 0f));
+        readerNodes.put(VALUE, new NumberNode(uuid,true, 0f));
+        writerNodes.put(OUTPUT, new NumberNode(uuid,false, 0f));
     }
 
 

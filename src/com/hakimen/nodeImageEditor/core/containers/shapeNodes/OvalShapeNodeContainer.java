@@ -19,12 +19,12 @@ public class OvalShapeNodeContainer extends NodeContainer {
     public OvalShapeNodeContainer(float x, float y) {
         super(x, y, "Oval Shape Node");
 
-        readerNodes.put(X, new NumberNode(this, true, 0));
-        readerNodes.put(Y, new NumberNode(this, true, 0));
-        readerNodes.put(WIDTH, new NumberNode(this, true, 0));
-        readerNodes.put(HEIGHT, new NumberNode(this, true, 0));
+        readerNodes.put(X, new NumberNode(uuid, true, 0));
+        readerNodes.put(Y, new NumberNode(uuid, true, 0));
+        readerNodes.put(WIDTH, new NumberNode(uuid, true, 0));
+        readerNodes.put(HEIGHT, new NumberNode(uuid, true, 0));
 
-        writerNodes.put(OUTPUT, new ShapeNode(this, false, new Rectangle2D.Float(0, 0, 0, 0)));
+        writerNodes.put(OUTPUT, new ShapeNode(uuid, false, new Rectangle2D.Float(0, 0, 0, 0)));
     }
 
     @Override

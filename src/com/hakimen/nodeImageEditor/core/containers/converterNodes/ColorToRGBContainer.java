@@ -14,11 +14,11 @@ public class ColorToRGBContainer extends NodeContainer {
     public ColorToRGBContainer(float x, float y) {
         super(x, y, "Color to RGB Node");
 
-        writerNodes.put(R, new NumberNode(this, false, 0));
-        writerNodes.put(G, new NumberNode(this, false, 0));
-        writerNodes.put(B, new NumberNode(this, false, 0));
+        writerNodes.put(R, new NumberNode(uuid, false, 0));
+        writerNodes.put(G, new NumberNode(uuid, false, 0));
+        writerNodes.put(B, new NumberNode(uuid, false, 0));
 
-        readerNodes.put(COLOR, new ColorNode(this, true, Color.BLACK));
+        readerNodes.put(COLOR, new ColorNode(uuid, true, Color.BLACK));
     }
 
     @Override

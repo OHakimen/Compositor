@@ -4,14 +4,15 @@ import com.hakimen.nodeImageEditor.core.Node;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 
 import java.awt.*;
+import java.util.UUID;
 
 public class NumberNode extends Node<Number> {
-    public NumberNode(NodeContainer container, boolean isReader, Number value) {
+    public NumberNode(UUID container, boolean isReader, Number value) {
         super(container, isReader, value);
         setNodeColor(Color.GREEN);
     }
 
-    public NumberNode(NodeContainer container, boolean isReader) {
+    public NumberNode(UUID container, boolean isReader) {
         super(container, isReader);
         setValue(0f);
         setNodeColor(Color.GREEN);

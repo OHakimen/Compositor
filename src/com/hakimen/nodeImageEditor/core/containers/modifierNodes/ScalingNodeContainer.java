@@ -17,11 +17,11 @@ public class ScalingNodeContainer extends NodeContainer {
     public ScalingNodeContainer(float x, float y) {
         super(x, y, "Scaling Node");
 
-        readerNodes.put(IMAGE, new ImageNode(this,true));
-        readerNodes.put(WIDTH, new NumberNode(this,true, 0));
-        readerNodes.put(HEIGHT, new NumberNode(this,true, 0));
+        readerNodes.put(IMAGE, new ImageNode(uuid,true));
+        readerNodes.put(WIDTH, new NumberNode(uuid,true, 0));
+        readerNodes.put(HEIGHT, new NumberNode(uuid,true, 0));
 
-        writerNodes.put(OUTPUT, new ImageNode(this,false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
 
     @Override

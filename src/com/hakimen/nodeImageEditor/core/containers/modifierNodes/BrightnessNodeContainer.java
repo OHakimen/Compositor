@@ -17,9 +17,9 @@ public class BrightnessNodeContainer extends NodeContainer {
     static final String OUTPUT = "Output Image";
     public BrightnessNodeContainer(float x, float y) {
         super(x, y, "Brightness Node");
-        readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
-        readerNodes.put(BRIGHTNESS,new NumberNode(this,true, 0));
-        writerNodes.put(OUTPUT,new ImageNode(this,false, new BufferedImage(1,1,2)));
+        readerNodes.put(IMAGE,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
+        readerNodes.put(BRIGHTNESS,new NumberNode(uuid,true, 0));
+        writerNodes.put(OUTPUT,new ImageNode(uuid,false, new BufferedImage(1,1,2)));
     }
 
     @Override

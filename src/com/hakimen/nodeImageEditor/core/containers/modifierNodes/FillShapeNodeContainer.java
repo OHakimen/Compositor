@@ -18,10 +18,10 @@ public class FillShapeNodeContainer extends NodeContainer {
     static final String COLOR = "Color";
     public FillShapeNodeContainer(float x, float y) {
         super(x, y, "Fill Shape Node");
-        readerNodes.put(SHAPE,new ShapeNode(this,true));
-        readerNodes.put(COLOR,new ColorNode(this,true, Color.WHITE));
+        readerNodes.put(SHAPE,new ShapeNode(uuid,true));
+        readerNodes.put(COLOR,new ColorNode(uuid,true, Color.WHITE));
 
-        writerNodes.put(OUTPUT, new ImageNode(this, false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid, false));
     }
 
     @Override

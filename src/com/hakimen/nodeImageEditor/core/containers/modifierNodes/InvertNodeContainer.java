@@ -15,8 +15,8 @@ public class InvertNodeContainer extends NodeContainer {
     static final String OUTPUT = "Output Image";
     public InvertNodeContainer(float x, float y) {
         super(x, y, "Invert Node");
-        readerNodes.put(IMAGE,new ImageNode(this,true, new BufferedImage(1,1,2)));
-        writerNodes.put(OUTPUT,new ImageNode(this,true, new BufferedImage(1,1,2)));
+        readerNodes.put(IMAGE,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
+        writerNodes.put(OUTPUT,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
     }
 
     @Override

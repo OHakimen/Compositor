@@ -23,9 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class NodeEditor {
 
@@ -36,6 +34,7 @@ public class NodeEditor {
 
     Project project = new Project();
     String baseTitle = Window.frame.getTitle();
+    String title = "";
     public NodeEditor(){
         chooser.setFileFilter(new FileFilter() {
             @Override
@@ -45,7 +44,7 @@ public class NodeEditor {
 
             @Override
             public String getDescription() {
-                return "CNI File";
+                return "CNP File";
             }
         });
 
@@ -59,12 +58,12 @@ public class NodeEditor {
             if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
                 File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
                 project.serialize(f);
-                baseTitle += " - " + f.getName();
+                title = baseTitle + " - " + f.getName();
             }else{
                 project.serialize(chooser.getSelectedFile());
-                baseTitle += " - " + chooser.getSelectedFile().getName();
+                title = baseTitle + " - " + chooser.getSelectedFile().getName();
             }
-
+            Window.frame.setTitle(title);
         });
         fileMenus.add(save);
         var open = new MenuItem("Open Project");
@@ -74,12 +73,13 @@ public class NodeEditor {
             if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
                 File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
                 project = Project.deserialize(f);
-                baseTitle += " - " + f.getName();
+                title = baseTitle + " - " + f.getName();
             }else{
                 project = Project.deserialize(chooser.getSelectedFile());
-                baseTitle += " - " + chooser.getSelectedFile().getName();
+                title = baseTitle + " - " + chooser.getSelectedFile().getName();
             }
             project.loadProject(this);
+            Window.frame.setTitle(title);
         });
 
         fileMenus.add(save);
@@ -90,7 +90,7 @@ public class NodeEditor {
         Window.frame.setMenuBar(menuBar);
     }
 
-    public ArrayList<Pair<UUID,NodeContainer>> containers = new ArrayList<>();
+    public Map<UUID,NodeContainer> containers = new LinkedHashMap<>();
     public boolean borderClicked;
 
     public Node<?> currentNode;
@@ -99,17 +99,17 @@ public class NodeEditor {
     public void update(){
 
         for(int j = 0; j < containers.size(); j++){
-            NodeContainer container = containers.get(j).getSecond();
+            NodeContainer container = containers.values().stream().toList().get(j);
             if(Keyboard.keys[NodeConnectionRemoveKey].pressed && Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x,container.y,container.sx,40)){
-                containers.remove(j);
                 for (int i = 0; i < connections.size(); i++) {
                     var con = connections.get(i);
-                    if(con.getFirst().getContainer() == container){
+                    if(con.getFirst().getContainer().equals(container.uuid)){
                         connections.remove(i);
-                    }else if(con.getSecond().getContainer() == container){
+                    }else if(con.getSecond().getContainer().equals(container.uuid)){
                         connections.remove(i);
                     }
                 }
+                containers.remove(container.uuid);
             }
 
             if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && !borderClicked && currentNode == null){
@@ -202,17 +202,17 @@ public class NodeEditor {
     }
 
     public void render(){
-        if(currentNode!= null){
+        if(currentNode!= null && containers.get(currentNode.getContainer()) != null){
             float fnodeX = 0,fnodeY = 0;
             if(currentNode.isReader()){
-                fnodeX = currentNode.getContainer().x - 2;
-                fnodeY = currentNode.getContainer().y + (currentNode.getContainer().readerNodes.values().stream().toList().indexOf(currentNode)-1) * 24 + 96;
+                fnodeX = containers.get(currentNode.getContainer()).x - 2;
+                fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).readerNodes.values().stream().toList().indexOf(currentNode)-1) * 24 + 96;
 
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-64,fnodeY+2,ViewTransformer.transformedMouseX + 64,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
                 RenderUtils.DrawShape(shape,currentNode.getNodeColor());
             }else{
-                fnodeX = currentNode.getContainer().x + currentNode.getContainer().sx - 2;
-                fnodeY = currentNode.getContainer().y + (currentNode.getContainer().writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
+                fnodeX = containers.get(currentNode.getContainer()).x + containers.get(currentNode.getContainer()).sx - 2;
+                fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
 
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+128,fnodeY+2,ViewTransformer.transformedMouseX - 128,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
                 RenderUtils.DrawShape(shape,currentNode.getNodeColor());
@@ -222,22 +222,26 @@ public class NodeEditor {
             float fnodeX = 0,fnodeY = 0;
             float snodeX = 0,snodeY = 0;
 
-            if(!pair.getFirst().isReader()){
-                fnodeX = pair.getFirst().getContainer().x + pair.getFirst().getContainer().sx - 2;
-                fnodeY = pair.getFirst().getContainer().y + (pair.getFirst().getContainer().writerNodes.values().stream().toList().indexOf(pair.getFirst()) - 1) * 24+ 96;
+            if(containers.get(pair.getFirst().getContainer()) != null){
+                if(!pair.getFirst().isReader()){
+                    fnodeX = containers.get(pair.getFirst().getContainer()).x + containers.get(pair.getFirst().getContainer()).sx - 2;
+                    fnodeY = containers.get(pair.getFirst().getContainer()).y + (containers.get(pair.getFirst().getContainer()).writerNodes.values().stream().toList().indexOf(pair.getFirst()) - 1) * 24+ 96;
 
-            }else{
-                fnodeX = pair.getFirst().getContainer().x - 2;
-                fnodeY = pair.getFirst().getContainer().y + (pair.getFirst().getContainer().readerNodes.values().stream().toList().indexOf(pair.getFirst())-1) * 24 + 96;
+                }else{
+                    fnodeX = containers.get(pair.getFirst().getContainer()).x - 2;
+                    fnodeY = containers.get(pair.getFirst().getContainer()).y + (containers.get(pair.getFirst().getContainer()).readerNodes.values().stream().toList().indexOf(pair.getFirst())-1) * 24 + 96;
 
+                }
             }
 
-            if(!pair.getSecond().isReader()){
-                snodeX = pair.getSecond().getContainer().x + pair.getSecond().getContainer().sx - 2;
-                snodeY = pair.getSecond().getContainer().y + (pair.getSecond().getContainer().writerNodes.values().stream().toList().indexOf(pair.getSecond()) - 1) * 24+ 96;
-            }else {
-                snodeX = pair.getSecond().getContainer().x - 2;
-                snodeY = pair.getSecond().getContainer().y + (pair.getSecond().getContainer().readerNodes.values().stream().toList().indexOf(pair.getSecond())-1) * 24 + 96;
+            if(containers.get(pair.getSecond().getContainer()) != null){
+                if (!pair.getSecond().isReader()) {
+                    snodeX = containers.get(pair.getSecond().getContainer()).x + containers.get(pair.getSecond().getContainer()).sx - 2;
+                    snodeY = containers.get(pair.getSecond().getContainer()).y + (containers.get(pair.getSecond().getContainer()).writerNodes.values().stream().toList().indexOf(pair.getSecond()) - 1) * 24 + 96;
+                } else {
+                    snodeX = containers.get(pair.getSecond().getContainer()).x - 2;
+                    snodeY = containers.get(pair.getSecond().getContainer()).y + (containers.get(pair.getSecond().getContainer()).readerNodes.values().stream().toList().indexOf(pair.getSecond()) - 1) * 24 + 96;
+                }
             }
             if(pair.getFirst().isReader()){
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-128,fnodeY+2,snodeX + 128,snodeY+2,snodeX+2,snodeY+2);
@@ -249,7 +253,7 @@ public class NodeEditor {
 
         }
         for (int i = 0; i < containers.size(); i++) {
-            var container = containers.get(i).getSecond();
+            var container = containers.values().stream().toList().get(i);
             container.render();
         }
     }

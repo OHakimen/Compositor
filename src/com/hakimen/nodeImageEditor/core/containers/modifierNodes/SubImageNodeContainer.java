@@ -19,13 +19,13 @@ public class SubImageNodeContainer extends NodeContainer {
 
     public SubImageNodeContainer(float x, float y) {
         super(x, y, "SubImage Node");
-        readerNodes.put(IMAGE, new ImageNode(this,true));
-        readerNodes.put(X, new NumberNode(this,true, 0));
-        readerNodes.put(Y, new NumberNode(this,true, 0));
-        readerNodes.put(WIDTH, new NumberNode(this,true, 0));
-        readerNodes.put(HEIGHT, new NumberNode(this,true, 0));
+        readerNodes.put(IMAGE, new ImageNode(uuid,true));
+        readerNodes.put(X, new NumberNode(uuid,true, 0));
+        readerNodes.put(Y, new NumberNode(uuid,true, 0));
+        readerNodes.put(WIDTH, new NumberNode(uuid,true, 0));
+        readerNodes.put(HEIGHT, new NumberNode(uuid,true, 0));
 
-        writerNodes.put(OUTPUT, new ImageNode(this,false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
 
     @Override

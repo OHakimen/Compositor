@@ -14,11 +14,11 @@ public class HSLToColorContainer extends NodeContainer {
     public HSLToColorContainer(float x, float y) {
         super(x, y, "HSL to Color Node");
 
-        readerNodes.put(HUE, new NumberNode(this, true, 0));
-        readerNodes.put(SATURATION, new NumberNode(this, true, 0));
-        readerNodes.put(LUMINANCE, new NumberNode(this, true, 0));
+        readerNodes.put(HUE, new NumberNode(uuid, true, 0));
+        readerNodes.put(SATURATION, new NumberNode(uuid, true, 0));
+        readerNodes.put(LUMINANCE, new NumberNode(uuid, true, 0));
 
-        writerNodes.put(COLOR, new ColorNode(this, false, Color.BLACK));
+        writerNodes.put(COLOR, new ColorNode(uuid, false, Color.BLACK));
     }
 
     @Override

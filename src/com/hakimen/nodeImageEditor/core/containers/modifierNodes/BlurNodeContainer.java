@@ -24,10 +24,10 @@ public class BlurNodeContainer extends NodeContainer {
     public BlurNodeContainer(float x, float y) {
         super(x, y, "Blur Node");
         sx += 64;
-        readerNodes.put(BLUR_STRENGTH, new NumberNode(this, true, 0f));
-        readerNodes.put(IMAGE, new ImageNode(this, true));
+        readerNodes.put(BLUR_STRENGTH, new NumberNode(uuid, true, 0f));
+        readerNodes.put(IMAGE, new ImageNode(uuid, true));
 
-        writerNodes.put(OUTPUT, new ImageNode(this, false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid, false));
     }
 
     @Override

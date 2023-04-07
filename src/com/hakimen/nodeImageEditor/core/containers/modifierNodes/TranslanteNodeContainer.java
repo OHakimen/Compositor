@@ -18,11 +18,11 @@ public class TranslanteNodeContainer extends NodeContainer {
 
     public TranslanteNodeContainer(float x, float y) {
         super(x, y, "Translate Node");
-        readerNodes.put(IMAGE, new ImageNode(this,true, new BufferedImage(1,1,2)));
-        readerNodes.put(X, new NumberNode(this,true, 0));
-        readerNodes.put(Y, new NumberNode(this,true, 0));
+        readerNodes.put(IMAGE, new ImageNode(uuid,true, new BufferedImage(1,1,2)));
+        readerNodes.put(X, new NumberNode(uuid,true, 0));
+        readerNodes.put(Y, new NumberNode(uuid,true, 0));
 
-        writerNodes.put(OUTPUT, new ImageNode(this,false));
+        writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
 
     @Override
