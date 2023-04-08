@@ -9,12 +9,12 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
-public class InvertNodeContainer extends NodeContainer {
+public class GrayScaleNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
     static final String OUTPUT = "Output Image";
-    public InvertNodeContainer(float x, float y) {
-        super(x, y, "Invert Node");
+    public GrayScaleNodeContainer(float x, float y) {
+        super(x, y, "Grayscale Node");
         readerNodes.put(IMAGE,new ImageNode(uuid,true, new BufferedImage(1,1,2)));
         writerNodes.put(OUTPUT,new ImageNode(uuid,false, new BufferedImage(1,1,2)));
     }
@@ -40,12 +40,15 @@ public class InvertNodeContainer extends NodeContainer {
                 var buff = new BufferedImage(node.getValue().getWidth(),node.getValue().getHeight(),2);
                 for (int x = 0; x < node.getValue().getWidth(); x++) {
                     for (int y = 0; y < node.getValue().getHeight(); y++) {
-                        int rgba = node.getValue().getRGB(x, y);
-                        Color col = new Color(rgba, true);
-                        col = new Color(255 - col.getRed(),
-                                255 - col.getGreen(),
-                                255 - col.getBlue());
-                        buff.setRGB(x, y, col.getRGB());
+                        Color color = new Color(node.getValue().getRGB(x, y));
+                        float[] af = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+
+                        float h = af[0];
+                        float l = af[2];
+
+                        float saturationNew = 0;
+
+                        buff.setRGB(x, y, Color.getHSBColor(h, saturationNew, l).getRGB());
                     }
                 }
                 out.setValue(buff);

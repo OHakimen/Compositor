@@ -22,8 +22,8 @@ public class SubImageNodeContainer extends NodeContainer {
         readerNodes.put(IMAGE, new ImageNode(uuid,true));
         readerNodes.put(X, new NumberNode(uuid,true, 0));
         readerNodes.put(Y, new NumberNode(uuid,true, 0));
-        readerNodes.put(WIDTH, new NumberNode(uuid,true, 0));
-        readerNodes.put(HEIGHT, new NumberNode(uuid,true, 0));
+        readerNodes.put(WIDTH, new NumberNode(uuid,true, 1));
+        readerNodes.put(HEIGHT, new NumberNode(uuid,true, 1));
 
         writerNodes.put(OUTPUT, new ImageNode(uuid,false));
     }
@@ -48,7 +48,7 @@ public class SubImageNodeContainer extends NodeContainer {
             readerNodes.get(HEIGHT) instanceof NumberNode height){
             if(writerNodes.get(OUTPUT) instanceof ImageNode out){
                 if(Window.ticks % 20 == 0 && x.getValue() != null && y.getValue() != null && width.getValue() != null && height.getValue() != null){
-                    out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),width.getValue().intValue(),height.getValue().intValue()));
+                    out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),1 | width.getValue().intValue(), 1 | height.getValue().intValue()));
                 }
             }
         }

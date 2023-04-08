@@ -208,13 +208,17 @@ public class NodeEditor {
                 fnodeX = containers.get(currentNode.getContainer()).x - 2;
                 fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).readerNodes.values().stream().toList().indexOf(currentNode)-1) * 24 + 96;
 
-                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-64,fnodeY+2,ViewTransformer.transformedMouseX + 64,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
+                float dist = (float)Math.sqrt(Math.pow((fnodeX-ViewTransformer.transformedMouseX),2) + Math.pow((fnodeY-ViewTransformer.transformedMouseY),2)) / 2;
+
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-dist,fnodeY+2,ViewTransformer.transformedMouseX + dist,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
                 RenderUtils.DrawShape(shape,currentNode.getNodeColor());
             }else{
                 fnodeX = containers.get(currentNode.getContainer()).x + containers.get(currentNode.getContainer()).sx - 2;
                 fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
 
-                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+128,fnodeY+2,ViewTransformer.transformedMouseX - 128,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
+                float dist = (float)Math.sqrt(Math.pow((fnodeX-ViewTransformer.transformedMouseX),2) + Math.pow((fnodeY-ViewTransformer.transformedMouseY),2)) / 2;
+
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+dist,fnodeY+2,ViewTransformer.transformedMouseX - dist,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
                 RenderUtils.DrawShape(shape,currentNode.getNodeColor());
             }
         }
@@ -243,11 +247,12 @@ public class NodeEditor {
                     snodeY = containers.get(pair.getSecond().getContainer()).y + (containers.get(pair.getSecond().getContainer()).readerNodes.values().stream().toList().indexOf(pair.getSecond()) - 1) * 24 + 96;
                 }
             }
+            float dist = (float)Math.sqrt(Math.pow((fnodeX-snodeX),2) + Math.pow((fnodeY-snodeY),2)) / 2;
             if(pair.getFirst().isReader()){
-                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-128,fnodeY+2,snodeX + 128,snodeY+2,snodeX+2,snodeY+2);
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-dist,fnodeY+2,snodeX + dist,snodeY+2,snodeX+2,snodeY+2);
                 RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
             }else if(pair.getSecond().isReader()){
-                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+128,fnodeY+2,snodeX - 128,snodeY+2,snodeX+2,snodeY+2);
+                var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+dist,fnodeY+2,snodeX - dist,snodeY+2,snodeX+2,snodeY+2);
                 RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
             }
 

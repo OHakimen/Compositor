@@ -4,6 +4,7 @@ import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
+import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;

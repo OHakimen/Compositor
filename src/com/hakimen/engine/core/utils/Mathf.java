@@ -10,7 +10,7 @@ public class Mathf {
     }
     public static float lerp(float a, float b, float f)
     {
-        return a + f * (b - a);
+        return a + (b - a) * f;
     }
 
     public static float map(float value, float istart, float istop, float ostart, float ostop) {
