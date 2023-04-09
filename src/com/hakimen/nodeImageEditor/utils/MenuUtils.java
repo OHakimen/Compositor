@@ -24,19 +24,19 @@ public class MenuUtils {
 
     public static void makeMenu(Menu menu, NodeEditor editor){
         Menu converterNodes = new Menu("Converter Nodes");
-        converterNodes.add(makeItem("Color to RGB Node", editor, ColorToRGBContainer::new));
-        converterNodes.add(makeItem("RGB to Color Node", editor, RGBtoColorContainer::new));
         converterNodes.add(makeItem("Color to HLS Node", editor, ColorToHSLContainer::new));
+        converterNodes.add(makeItem("Color to RGB Node", editor, ColorToRGBContainer::new));
         converterNodes.add(makeItem("HSL to Color Node", editor, HSLToColorContainer::new));
+        converterNodes.add(makeItem("RGB to Color Node", editor, RGBtoColorContainer::new));
 
         Menu mathNodes = new Menu("Math Nodes");
 
         Menu basicMathNodes = new Menu("Basic Nodes");
         basicMathNodes.add(makeItem("Add Node", editor, AddNodeContainer::new));
         basicMathNodes.add(makeItem("Divide Node", editor, DivideNodeContainer::new));
+        basicMathNodes.add(makeItem("Modulo Node", editor, ModuloValueNodeContainer::new));
         basicMathNodes.add(makeItem("Multiply Node", editor, MultiplyNodeContainer::new));
         basicMathNodes.add(makeItem("Subtract Node", editor, SubtractNodeContainer::new));
-        basicMathNodes.add(makeItem("Modulo Node", editor, ModuloValueNodeContainer::new));
         mathNodes.add(basicMathNodes);
 
         Menu trigMathNodes = new Menu("Trigonometry Nodes");
@@ -46,26 +46,26 @@ public class MenuUtils {
         mathNodes.add(trigMathNodes);
 
         mathNodes.add(makeItem("Absolute Node", editor, AbsoluteValueNodeContainer::new));
-        mathNodes.add(makeItem("Random Node", editor, RandomNodeContainer::new));
         mathNodes.add(makeItem("Lerp Node", editor, LerpValueNodeContainer::new));
+        mathNodes.add(makeItem("Random Node", editor, RandomNodeContainer::new));
 
         Menu modifierNodes = new Menu("Modifier Nodes");
         modifierNodes.add(makeItem("Alpha Masking Node", editor, AlphaMaskingNodeContainer::new));
-        modifierNodes.add(makeItem("Brightness Node", editor, BrightnessNodeContainer::new));
         modifierNodes.add(makeItem("Blur Node", editor, BlurNodeContainer::new));
-        modifierNodes.add(makeItem("Layering Node", editor, LayeringNodeContainer::new));
+        modifierNodes.add(makeItem("Brightness Node", editor, BrightnessNodeContainer::new));
+        modifierNodes.add(makeItem("Fill Shape Node", editor, FillShapeNodeContainer::new));
         modifierNodes.add(makeItem("Grayscale Node", editor, GrayScaleNodeContainer::new));
-        modifierNodes.add(makeItem("Saturation Map Node", editor, SaturationMapNodeContainer::new));
         modifierNodes.add(makeItem("Hue Node", editor, HueNodeContainer::new));
+        modifierNodes.add(makeItem("Invert Node", editor, InvertNodeContainer::new));
+        modifierNodes.add(makeItem("Layering Node", editor, LayeringNodeContainer::new));
+        modifierNodes.add(makeItem("Luminance Map Node", editor, LuminanceMapNodeContainer::new));
+        modifierNodes.add(makeItem("Rotate Node", editor, RotateNodeContainer::new));
         modifierNodes.add(makeItem("Scaling Node", editor, ScalingNodeContainer::new));
         modifierNodes.add(makeItem("Shape Masking Node", editor, ShapeMaskingNodeContainer::new));
         modifierNodes.add(makeItem("Sub Image Node", editor, SubImageNodeContainer::new));
         modifierNodes.add(makeItem("Tint Node", editor, TintNodeContainer::new));
-        modifierNodes.add(makeItem("Fill Shape Node", editor, FillShapeNodeContainer::new));
-        modifierNodes.add(makeItem("Invert Node", editor, InvertNodeContainer::new));
         modifierNodes.add(makeItem("Threshold Node", editor, ThresholdNodeContainer::new));
         modifierNodes.add(makeItem("Translate Node", editor, TranslanteNodeContainer::new));
-        modifierNodes.add(makeItem("Rotate Node", editor, RotateNodeContainer::new));
 
         Menu shapeNodes = new Menu("Shape Nodes");
         shapeNodes.add(makeItem("Oval Node",editor, OvalShapeNodeContainer::new));
@@ -75,8 +75,8 @@ public class MenuUtils {
         Menu valueNodes = new Menu("Value Nodes");
         valueNodes.add(makeItem("Clock Node", editor, ClockNodeContainer::new));
         valueNodes.add(makeItem("Color Node", editor, ColorNodeContainer::new));
-        valueNodes.add(makeItem("Value Node", editor, ValueNodeContainer::new));
         valueNodes.add(makeItem("Image Node", editor, ImageNodeContainer::new));
+        valueNodes.add(makeItem("Value Node", editor, ValueNodeContainer::new));
 
         Menu viewNodes = new Menu("View Nodes");
         viewNodes.add(makeItem("Image View Node", editor, ImageViewNodeContainer::new));

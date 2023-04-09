@@ -10,6 +10,9 @@ import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 import com.hakimen.nodeImageEditor.core.node.ShapeNode;
+import com.hakimen.nodeImageEditor.core.notifications.notification.ErrorNotification;
+import com.hakimen.nodeImageEditor.core.notifications.NotificationHandler;
+import com.hakimen.nodeImageEditor.core.notifications.notification.SuccessNotification;
 import com.hakimen.nodeImageEditor.core.project.Project;
 import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.MenuUtils;
@@ -26,6 +29,12 @@ import java.io.File;
 import java.util.*;
 
 public class NodeEditor {
+
+    public static final int NOTIFY_SHORT = 60 * 5;
+    public static final int NOTIFY_NORMAL = 60 * 10;
+    public static final int NOTIFY_BIG = 60 * 15;
+
+    public static NotificationHandler handler = new NotificationHandler(0.25f);
 
 
     static int NodeConnectionRemoveKey = KeyEvent.VK_DELETE;
@@ -55,6 +64,9 @@ public class NodeEditor {
         save.addActionListener((a)->{
             project = new Project(containers,connections);
             chooser.showSaveDialog(null);
+            if(chooser.getSelectedFile() == null){
+                handler.push(new ErrorNotification("Couldn't save project","No file provided",NOTIFY_SHORT));
+            }
             if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
                 File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
                 project.serialize(f);
@@ -63,6 +75,7 @@ public class NodeEditor {
                 project.serialize(chooser.getSelectedFile());
                 title = baseTitle + " - " + chooser.getSelectedFile().getName();
             }
+            handler.push(new SuccessNotification("Project Saved",chooser.getSelectedFile().getName(),NOTIFY_SHORT));
             Window.frame.setTitle(title);
         });
         fileMenus.add(save);
@@ -70,6 +83,9 @@ public class NodeEditor {
 
         open.addActionListener((a)->{
             chooser.showOpenDialog(null);
+            if(chooser.getSelectedFile() == null){
+                handler.push(new ErrorNotification("Couldn't load Project","No file provided",NOTIFY_SHORT));
+            }
             if (!chooser.getSelectedFile().getAbsolutePath().endsWith(".cnp")) {
                 File f = new File(chooser.getSelectedFile().getAbsolutePath()+".cnp");
                 project = Project.deserialize(f);
@@ -79,6 +95,8 @@ public class NodeEditor {
                 title = baseTitle + " - " + chooser.getSelectedFile().getName();
             }
             project.loadProject(this);
+            handler.push(new SuccessNotification("Project Loaded",chooser.getSelectedFile().getName(),NOTIFY_SHORT));
+
             Window.frame.setTitle(title);
         });
 

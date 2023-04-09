@@ -3,17 +3,15 @@ package com.hakimen;
 import com.hakimen.engine.core.io.Keyboard;
 import com.hakimen.engine.core.io.Mouse;
 
+import com.hakimen.engine.core.io.MouseButton;
 import com.hakimen.engine.core.render.camera.CameraStack;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.NodeEditor;
-import com.hakimen.nodeImageEditor.core.containers.modifierNodes.AlphaMaskingNodeContainer;
-import com.hakimen.nodeImageEditor.core.containers.modifierNodes.ScalingNodeContainer;
-import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ImageNodeContainer;
-import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ValueNodeContainer;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Main implements Runnable{
     public static void main(String[] args) {
@@ -39,7 +37,9 @@ public class Main implements Runnable{
     }
 
     NodeEditor nodeEditor = new NodeEditor();
+
     private void init(){
+
     }
 
     private void destroy(){
@@ -48,21 +48,23 @@ public class Main implements Runnable{
     private void tick(){
         Keyboard.tick();
         Mouse.tick();
+        NodeEditor.handler.update();
     }
 
     private void update(){
         Keyboard.update();
         Mouse.update();
+        nodeEditor.update();
     }
-
 
     private void render(){
         RenderUtils.SetRenderHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-        CameraStack.pushCamera();
+
         ViewTransformer.update();
-        nodeEditor.update();
+
         nodeEditor.render();
-        CameraStack.popCamera();
+        ViewTransformer.reset();
+        NodeEditor.handler.render();
     }
     private void shader(int[] buffer){
 

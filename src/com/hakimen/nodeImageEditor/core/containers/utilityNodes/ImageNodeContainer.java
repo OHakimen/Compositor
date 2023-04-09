@@ -2,10 +2,13 @@ package com.hakimen.nodeImageEditor.core.containers.utilityNodes;
 
 import com.hakimen.engine.core.io.Mouse;
 import com.hakimen.engine.core.utils.RenderUtils;
+import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
+import com.hakimen.nodeImageEditor.core.notifications.notification.Notification;
+import com.hakimen.nodeImageEditor.core.notifications.notification.WarningNotification;
 import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
@@ -43,9 +46,14 @@ public class ImageNodeContainer extends NodeContainer {
                         writerNodes.get(HEIGHT) instanceof NumberNode height){
                     chooser.showOpenDialog(null);
                     try {
-                        node.setValue(ImageIO.read(chooser.getSelectedFile()));
-                        width.setValue(node.getValue().getWidth());
-                        height.setValue(node.getValue().getHeight());
+                        if(chooser.getSelectedFile() != null) {
+                            node.setValue(ImageIO.read(chooser.getSelectedFile()));
+                            width.setValue(node.getValue().getWidth());
+                            height.setValue(node.getValue().getHeight());
+                            NodeEditor.handler.push(new Notification("Loaded image", "Loaded image ", chooser.getSelectedFile().getName(), NodeEditor.NOTIFY_NORMAL).setImg(node.getValue()));
+                        }else{
+                            NodeEditor.handler.push(new WarningNotification("Couldn't load image", "No file provided", NodeEditor.NOTIFY_NORMAL));
+                        }
                     } catch (Exception ignored) {
 
                     }

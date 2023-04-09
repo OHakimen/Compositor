@@ -40,18 +40,20 @@ public class AlphaMaskingNodeContainer extends NodeContainer {
                 readerNodes.get(IMAGE) instanceof ImageNode image &&
                 writerNodes.get(OUTPUT) instanceof ImageNode node) {
             if (Window.ticks % 20 == 0 && mask.getValue() != null && image.getValue() != null){
+                if(mask.getValue().getHeight() == image.getValue().getHeight() &&
+                        mask.getValue().getWidth() == image.getValue().getWidth()){
+                    int[] imagePixels = image.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
+                    int[] maskPixels = mask.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
 
-                int[] imagePixels = image.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
-                int[] maskPixels = mask.getValue().getRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), null, 0, image.getValue().getWidth());
-
-                for (int i = 0; i < imagePixels.length; i++) {
-                    int color = imagePixels[i] & 0x00ffffff; // Mask preexisting alpha
-                    int alpha = maskPixels[i] << 24; // Shift blue to alpha
-                    imagePixels[i] = color | alpha;
+                    for (int i = 0; i < imagePixels.length; i++) {
+                        int color = imagePixels[i] & 0x00ffffff; // Mask preexisting alpha
+                        int alpha = maskPixels[i] << 24; // Shift blue to alpha
+                        imagePixels[i] = color | alpha;
+                    }
+                    var buff = new BufferedImage(image.getValue().getWidth(), image.getValue().getHeight(), 2);
+                    buff.setRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), imagePixels, 0, image.getValue().getWidth());
+                    node.setValue(buff);
                 }
-                var buff = new BufferedImage(image.getValue().getWidth(), image.getValue().getHeight(), 2);
-                buff.setRGB(0, 0, image.getValue().getWidth(), image.getValue().getHeight(), imagePixels, 0, image.getValue().getWidth());
-                node.setValue(buff);
             }
         }
     }

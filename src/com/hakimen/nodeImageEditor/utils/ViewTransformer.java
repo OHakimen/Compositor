@@ -30,4 +30,7 @@ public class ViewTransformer {
         transformedMouseY = Mouse.y - diffY;
         RenderUtils.Translate( x - lastX , y - lastY);
     }
+    public static void reset(){
+        RenderUtils.Translate(-(x - lastX), -(y - lastY));
+    }
 }

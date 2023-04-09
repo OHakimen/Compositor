@@ -11,15 +11,15 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
-public class SaturationMapNodeContainer extends NodeContainer {
+public class LuminanceMapNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
     static final String COLOR_MAX = "Color Max";
     static final String COLOR_MIN = "Color Min";
     static final String OUTPUT = "Output Image";
 
-    public SaturationMapNodeContainer(float x, float y) {
-        super(x, y, "Saturation Map Node");
+    public LuminanceMapNodeContainer(float x, float y) {
+        super(x, y, "Luminance Map Node");
         readerNodes.put(IMAGE, new ImageNode(uuid, true, new BufferedImage(1, 1, 2)));
         readerNodes.put(COLOR_MAX, new ColorNode(uuid, true));
         readerNodes.put(COLOR_MIN, new ColorNode(uuid, true));
@@ -55,6 +55,7 @@ public class SaturationMapNodeContainer extends NodeContainer {
                             || lastMax == null || lastMax != max.getValue()
                             || lastMin == null || lastMin != min.getValue())) {
                 var buff = new BufferedImage(node.getValue().getWidth(), node.getValue().getHeight(),2);
+                var g = buff.getGraphics();
                 for (int x = 0; x < node.getValue().getWidth(); x++) {
                     for (int y = 0; y < node.getValue().getHeight(); y++) {
                         var hsl = new float[3];
@@ -71,18 +72,19 @@ public class SaturationMapNodeContainer extends NodeContainer {
 
                         float temp = hsl[2];
 
-
                         var newR = (int) (Mathf.lerp(min_r, max_r, temp));
                         var newG = (int) (Mathf.lerp(min_g, max_g, temp));
                         var newB = (int) (Mathf.lerp(min_b, max_b, temp));
 
-                        buff.setRGB(x, y, new Color(newR, newG, newB).getRGB());
+                        g.setColor(new Color(newR,newG,newB,color.getAlpha()));
+                        g.fillRect(x,y,1,1);
                     }
                 }
+                g.dispose();
                 out.setValue(buff);
                 lastImage = node.getValue();
                 lastMax = max.getValue();
-                lastMin = max.getValue();
+                lastMin = min.getValue();
             }
         }
     }

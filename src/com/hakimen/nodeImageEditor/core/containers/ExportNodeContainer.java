@@ -2,10 +2,10 @@ package com.hakimen.nodeImageEditor.core.containers;
 
 import com.hakimen.engine.core.io.Mouse;
 import com.hakimen.engine.core.utils.RenderUtils;
-import com.hakimen.nodeImageEditor.core.Node;
+import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
-import com.hakimen.nodeImageEditor.core.node.NumberNode;
+import com.hakimen.nodeImageEditor.core.notifications.notification.Notification;
 import com.hakimen.nodeImageEditor.utils.Collisions;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class ExportNodeContainer extends NodeContainer {
 
@@ -41,7 +40,10 @@ public class ExportNodeContainer extends NodeContainer {
                 if(node.getValue() != null){
                     chooser.showSaveDialog(null);
                     try {
-                        ImageIO.write(node.getValue(), "PNG",chooser.getSelectedFile());
+                        if(chooser.getSelectedFile() != null) {
+                            ImageIO.write(node.getValue(), "PNG", chooser.getSelectedFile());
+                            NodeEditor.handler.push(new Notification("Export", "Saved image as", chooser.getSelectedFile().getName(),NodeEditor.NOTIFY_NORMAL).setImg(node.getValue()));
+                        }
                     } catch (Exception ignored) {
 
                     }
