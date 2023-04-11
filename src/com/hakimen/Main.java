@@ -3,15 +3,12 @@ package com.hakimen;
 import com.hakimen.engine.core.io.Keyboard;
 import com.hakimen.engine.core.io.Mouse;
 
-import com.hakimen.engine.core.io.MouseButton;
-import com.hakimen.engine.core.render.camera.CameraStack;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class Main implements Runnable{
     public static void main(String[] args) {

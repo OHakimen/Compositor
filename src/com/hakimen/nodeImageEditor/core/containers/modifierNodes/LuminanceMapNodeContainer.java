@@ -3,9 +3,11 @@ package com.hakimen.nodeImageEditor.core.containers.modifierNodes;
 import com.hakimen.engine.core.utils.Mathf;
 import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
+import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
 import com.hakimen.nodeImageEditor.core.node.ColorNode;
 import com.hakimen.nodeImageEditor.core.node.ImageNode;
+import com.hakimen.nodeImageEditor.core.notifications.notification.WarningNotification;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -54,6 +56,7 @@ public class LuminanceMapNodeContainer extends NodeContainer {
                     lastImage == null || lastImage != node.getValue()
                             || lastMax == null || lastMax != max.getValue()
                             || lastMin == null || lastMin != min.getValue())) {
+                NodeEditor.handler.push(new WarningNotification("Processing","This may take a while", NodeEditor.NOTIFY_SHORT));
                 var buff = new BufferedImage(node.getValue().getWidth(), node.getValue().getHeight(),2);
                 var g = buff.getGraphics();
                 for (int x = 0; x < node.getValue().getWidth(); x++) {

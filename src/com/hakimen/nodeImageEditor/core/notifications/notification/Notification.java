@@ -57,7 +57,7 @@ public class Notification {
     }
 
     public void update(){
-        if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed && Collisions.pointToRect(Mouse.x,Mouse.y,x+ 238,y+8,16,16)){
+        if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed && Collisions.pointToRect(Mouse.x,Mouse.y,x+236,y+6,16,16)){
             timeAlive = maxTimeAlive - 10;
         }
         timeAlive++;
