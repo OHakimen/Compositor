@@ -23,10 +23,13 @@ public class ColorNodeContainer extends NodeContainer {
 
     @Override
     public void update() {
-        if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed){
-            if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
-                if(writerNodes.get(COLOR) instanceof ColorNode node){
-                    node.setValue(JColorChooser.showDialog(null,"Pick a Color",node.getValue()));
+        if (Mouse.mouseButtons[MouseEvent.BUTTON1].pressed) {
+            if (Collisions.pointToRect(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY, x + 8, y + 48, 128, 32)) {
+                if (writerNodes.get(COLOR) instanceof ColorNode node) {
+                    Color color = JColorChooser.showDialog(null, "Pick a Color", node.getValue(), true);
+                    if (color != null) {
+                        node.setValue(color);
+                    }
                 }
             }
         }

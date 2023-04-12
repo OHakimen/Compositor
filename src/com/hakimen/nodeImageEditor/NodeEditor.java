@@ -33,10 +33,7 @@ public class NodeEditor {
     public static final int NOTIFY_SHORT = 60 * 5;
     public static final int NOTIFY_NORMAL = 60 * 10;
     public static final int NOTIFY_BIG = 60 * 15;
-
     public static NotificationHandler handler = new NotificationHandler(0.25f);
-
-
     static int NodeConnectionRemoveKey = KeyEvent.VK_DELETE;
     MenuBar menuBar = new MenuBar();
     JFileChooser chooser = new JFileChooser("/");
@@ -44,6 +41,15 @@ public class NodeEditor {
     Project project = new Project();
     String baseTitle = Window.frame.getTitle();
     String title = "";
+
+
+    public Map<UUID,NodeContainer> containers = new LinkedHashMap<>();
+    public boolean borderClicked;
+
+    public Node<?> currentNode;
+    public NodeContainer clickedContainer;
+    public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
+
     public NodeEditor(){
         chooser.setFileFilter(new FileFilter() {
             @Override
@@ -108,12 +114,6 @@ public class NodeEditor {
         Window.frame.setMenuBar(menuBar);
     }
 
-    public Map<UUID,NodeContainer> containers = new LinkedHashMap<>();
-    public boolean borderClicked;
-
-    public Node<?> currentNode;
-    public NodeContainer clickedContainer;
-    public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
     public void update(){
 
         for(int j = 0; j < containers.size(); j++){
@@ -236,9 +236,7 @@ public class NodeEditor {
             }else{
                 fnodeX = containers.get(currentNode.getContainer()).x + containers.get(currentNode.getContainer()).sx - 2;
                 fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
-
-                float dist = (float)Math.sqrt(Math.pow((fnodeX-ViewTransformer.transformedMouseX),2) + Math.pow((fnodeY-ViewTransformer.transformedMouseY),2)) / 2;
-
+                float dist = 128;
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+dist,fnodeY+2,ViewTransformer.transformedMouseX - dist,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
                 RenderUtils.DrawShape(shape,currentNode.getNodeColor());
             }
@@ -268,7 +266,7 @@ public class NodeEditor {
                     snodeY = containers.get(pair.getSecond().getContainer()).y + (containers.get(pair.getSecond().getContainer()).readerNodes.values().stream().toList().indexOf(pair.getSecond()) - 1) * 24 + 96;
                 }
             }
-            float dist = (float)Math.sqrt(Math.pow((fnodeX-snodeX),2) + Math.pow((fnodeY-snodeY),2)) / 2;
+            float dist = 128;
             if(pair.getFirst().isReader()){
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-dist,fnodeY+2,snodeX + dist,snodeY+2,snodeX+2,snodeY+2);
                 RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
