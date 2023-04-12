@@ -118,6 +118,9 @@ public class NodeEditor {
 
         for(int j = 0; j < containers.size(); j++){
             NodeContainer container = containers.values().stream().toList().get(j);
+            if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed && Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x + container.sx - 24,container.y+12,16,16)){
+                containers.remove(container.uuid);
+            }
             if(Keyboard.keys[NodeConnectionRemoveKey].pressed && Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x,container.y,container.sx,40)){
                 for (int i = 0; i < connections.size(); i++) {
                     var con = connections.get(i);
@@ -158,7 +161,7 @@ public class NodeEditor {
                     }
                 }
 
-                if(Mouse.mouseButtons[MouseEvent.BUTTON1].down && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
+                if(!borderClicked && Mouse.mouseButtons[MouseEvent.BUTTON1].down && Collisions.pointToCircle(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY,calcX,calcY,4)){
                     if(currentNode == null){
                         currentNode = node;
                     }else if(currentNode != node){

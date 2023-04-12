@@ -40,6 +40,7 @@ public class NodeContainer implements Serializable{
     public void render(){
         RenderUtils.FillRoundedRect(x,y,sx,sy, 16f,16f, Color.DARK_GRAY);
         RenderUtils.FillRoundedRect(x,y,sx,40f, 16f,16f, Color.GRAY);
+        RenderUtils.DrawString((int)(x+sx-24),(int)(y + 14), Color.WHITE,"⛌");
 
         RenderUtils.DrawString((int)x + 8,(int)y + 14, Color.WHITE, name);
         readerNodes.forEach((k,v)->{
@@ -66,6 +67,4 @@ public class NodeContainer implements Serializable{
             this.sy = 64 + writerNodes.size() * 24 + 8;
         }
     }
-
-
 }
