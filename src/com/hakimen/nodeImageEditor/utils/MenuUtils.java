@@ -78,6 +78,7 @@ public class MenuUtils {
         valueNodes.add(makeItem("Color Node", editor, ColorNodeContainer::new));
         valueNodes.add(makeItem("Image Node", editor, ImageNodeContainer::new));
         valueNodes.add(makeItem("Value Node", editor, ValueNodeContainer::new));
+        valueNodes.add(makeItem("String Node", editor, StringNodeContainer::new));
 
         Menu viewNodes = new Menu("View Nodes");
         viewNodes.add(makeItem("Image View Node", editor, ImageViewNodeContainer::new));

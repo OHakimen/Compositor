@@ -57,8 +57,6 @@ public class BulkProcessNodeContainer extends NodeContainer {
                         if (file != chooser.getSelectedFile()) {
                             file = chooser.getSelectedFile().getParentFile();
                             NodeEditor.handler.push(new SuccessNotification("Loaded Folder", "" + file, NodeEditor.NOTIFY_NORMAL));
-                            var files = FileUtils.getBatch(file, ".png", ".gif", ".jpeg", ".jpg");
-                            images = ImageUtils.batchOpenAsImage(files);
                         } else {
                             NodeEditor.handler.push(new WarningNotification("Couldn't load", "Path isn't folder", NodeEditor.NOTIFY_NORMAL));
                         }
@@ -71,7 +69,8 @@ public class BulkProcessNodeContainer extends NodeContainer {
             }
 
             if (Collisions.pointToRect(ViewTransformer.transformedMouseX, ViewTransformer.transformedMouseY, x + 8 + 128, y + 48 + 64, 100, 32)) {
-
+                var files = FileUtils.getBatch(file, ".png", ".gif", ".jpeg", ".jpg");
+                images = ImageUtils.batchOpenAsImage(files);
                 started = true;
                 imgCurrent = 0;
             }
