@@ -2,6 +2,7 @@ package com.hakimen.nodeImageEditor.utils;
 
 import com.hakimen.nodeImageEditor.NodeEditor;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.BulkProcessNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.ExportNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToHSLContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToRGBContainer;
@@ -89,6 +90,7 @@ public class MenuUtils {
         menu.add(valueNodes);
         menu.add(viewNodes);
         menu.add(makeItem("Export Node",editor, ExportNodeContainer::new));
+        menu.add(makeItem("Bulk Process Node",editor, BulkProcessNodeContainer::new));
     }
 
     static MenuItem makeItem(String name, NodeEditor editor, BiFunction<Float,Float,NodeContainer> container){

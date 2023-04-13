@@ -6,10 +6,7 @@ import com.hakimen.engine.core.utils.RenderUtils;
 import com.hakimen.engine.core.utils.Window;
 import com.hakimen.nodeImageEditor.core.Node;
 import com.hakimen.nodeImageEditor.core.NodeContainer;
-import com.hakimen.nodeImageEditor.core.node.ColorNode;
-import com.hakimen.nodeImageEditor.core.node.ImageNode;
-import com.hakimen.nodeImageEditor.core.node.NumberNode;
-import com.hakimen.nodeImageEditor.core.node.ShapeNode;
+import com.hakimen.nodeImageEditor.core.node.*;
 import com.hakimen.nodeImageEditor.core.notifications.notification.ErrorNotification;
 import com.hakimen.nodeImageEditor.core.notifications.NotificationHandler;
 import com.hakimen.nodeImageEditor.core.notifications.notification.SuccessNotification;
@@ -209,6 +206,8 @@ public class NodeEditor {
                     toWrite.setValue(toRead.getValue());
                 if(pair.getFirst() instanceof ShapeNode toWrite && pair.getSecond() instanceof ShapeNode toRead)
                     toWrite.setValue(toRead.getValue());
+                if(pair.getFirst() instanceof StringNode toWrite && pair.getSecond() instanceof StringNode toRead)
+                    toWrite.setValue(toRead.getValue());
             }else if(pair.getSecond().isReader()){
                 if(pair.getSecond() instanceof NumberNode toWrite && pair.getFirst() instanceof NumberNode toRead)
                     toWrite.setValue(toRead.getValue());
@@ -217,6 +216,8 @@ public class NodeEditor {
                 if(pair.getSecond() instanceof ImageNode toWrite && pair.getFirst() instanceof ImageNode toRead)
                     toWrite.setValue(toRead.getValue());
                 if(pair.getSecond() instanceof ShapeNode toWrite && pair.getFirst() instanceof ShapeNode toRead)
+                    toWrite.setValue(toRead.getValue());
+                if(pair.getSecond() instanceof StringNode toWrite && pair.getFirst() instanceof StringNode toRead)
                     toWrite.setValue(toRead.getValue());
             }
         }
