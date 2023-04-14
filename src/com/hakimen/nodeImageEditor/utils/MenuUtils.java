@@ -14,6 +14,7 @@ import com.hakimen.nodeImageEditor.core.containers.shapeNodes.OvalShapeNodeConta
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RectangleShapeNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RoundRectShapeNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.*;
+import com.hakimen.nodeImageEditor.core.containers.utilityNodes.spliters.*;
 import com.hakimen.nodeImageEditor.core.containers.viewNodes.ImageViewNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.viewNodes.ValueViewNodeContainer;
 
@@ -74,6 +75,15 @@ public class MenuUtils {
         shapeNodes.add(makeItem("Rectangle Node",editor, RectangleShapeNodeContainer::new));
 
         Menu valueNodes = new Menu("Value Nodes");
+
+        Menu splitterNodes = new Menu("Splitter Nodes");
+        splitterNodes.add(makeItem("Number Splitter Node", editor, NumberSplitterNodeContainer::new));
+        splitterNodes.add(makeItem("Shape Splitter Node", editor, ShapeSplitterNodeContainer::new));
+        splitterNodes.add(makeItem("Image Splitter Node", editor, ImageSplitterNodeContainer::new));
+        splitterNodes.add(makeItem("Color Splitter Node", editor, ColorSplitterNodeContainer::new));
+        splitterNodes.add(makeItem("String Splitter Node", editor, StringSplitterNodeContainer::new));
+        valueNodes.add(splitterNodes);
+
         valueNodes.add(makeItem("Clock Node", editor, ClockNodeContainer::new));
         valueNodes.add(makeItem("Color Node", editor, ColorNodeContainer::new));
         valueNodes.add(makeItem("Image Node", editor, ImageNodeContainer::new));

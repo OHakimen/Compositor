@@ -28,9 +28,14 @@ public class ValueNodeContainer extends NodeContainer {
             if(Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,x+8,y + 48,128,32)){
                 var str = JOptionPane.showInputDialog("Insert a value for the value node");
                 if(str != null) {
-                    var n = Float.parseFloat(str);
+                    float temp;
+                    try {
+                        temp = Float.parseFloat(str);
+                    } catch (NumberFormatException ex) {
+                        temp = 0;
+                    }
                     if (writerNodes.get(VALUE) instanceof NumberNode node) {
-                        node.setValue(n);
+                        node.setValue(temp);
                     }
                 }
             }
