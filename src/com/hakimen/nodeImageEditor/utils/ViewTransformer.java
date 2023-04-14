@@ -14,7 +14,7 @@ public class ViewTransformer {
     public static void update(){
         diffX = (x-lastX);
         diffY = (y-lastY);
-        if(Mouse.mouseButtons[MouseEvent.BUTTON3].down && !mouseDrag){
+        if(Mouse.mouseButtons[MouseEvent.BUTTON2].down && !mouseDrag){
             lastX = Mouse.x - diffX;
             lastY = Mouse.y - diffY;
             mouseDrag = true;
@@ -23,7 +23,7 @@ public class ViewTransformer {
             x = Mouse.x;
             y = Mouse.y;
         }
-        if(!Mouse.mouseButtons[MouseEvent.BUTTON3].down && mouseDrag){
+        if(!Mouse.mouseButtons[MouseEvent.BUTTON2].down && mouseDrag){
             mouseDrag = false;
         }
         transformedMouseX = Mouse.x - diffX;

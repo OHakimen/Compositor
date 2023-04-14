@@ -43,6 +43,8 @@ public class NodeEditor {
     public Map<UUID,NodeContainer> containers = new LinkedHashMap<>();
     public boolean borderClicked;
 
+    public Menu nodeMenus;
+    public JPopupMenu popupMenu = new JPopupMenu();
     public Node<?> currentNode;
     public NodeContainer clickedContainer;
     public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
@@ -60,8 +62,9 @@ public class NodeEditor {
             }
         });
 
-        Menu nodeMenus = new Menu("Nodes");
+        nodeMenus = new Menu("Nodes");
         MenuUtils.makeMenu(nodeMenus,this);
+        MenuUtils.makeJMenu(popupMenu,this);
         Menu fileMenus = new Menu("File");
         var save = new MenuItem("Save Project");
         save.addActionListener((a)->{
@@ -112,7 +115,9 @@ public class NodeEditor {
     }
 
     public void update(){
-
+        if(Mouse.mouseButtons[MouseEvent.BUTTON3].pressed){
+            popupMenu.show(Window.canvas, Mouse.x,Mouse.y);
+        }
         for(int j = 0; j < containers.size(); j++){
             NodeContainer container = containers.values().stream().toList().get(j);
             if(Mouse.mouseButtons[MouseEvent.BUTTON1].pressed && Collisions.pointToRect(ViewTransformer.transformedMouseX,ViewTransformer.transformedMouseY,container.x + container.sx - 24,container.y+12,16,16)){
