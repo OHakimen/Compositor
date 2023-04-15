@@ -43,7 +43,6 @@ public class NodeEditor {
     public Map<UUID,NodeContainer> containers = new LinkedHashMap<>();
     public boolean borderClicked;
 
-    public Menu nodeMenus;
     public JPopupMenu popupMenu = new JPopupMenu();
     public Node<?> currentNode;
     public NodeContainer clickedContainer;
@@ -62,8 +61,6 @@ public class NodeEditor {
             }
         });
 
-        nodeMenus = new Menu("Nodes");
-        MenuUtils.makeMenu(nodeMenus,this);
         MenuUtils.makeJMenu(popupMenu,this);
         Menu fileMenus = new Menu("File");
         var save = new MenuItem("Save Project");
@@ -110,12 +107,11 @@ public class NodeEditor {
         fileMenus.add(open);
 
         menuBar.add(fileMenus);
-        menuBar.add(nodeMenus);
         Window.frame.setMenuBar(menuBar);
     }
 
     public void update(){
-        if(Mouse.mouseButtons[MouseEvent.BUTTON3].pressed){
+        if(Mouse.mouseButtons[MouseEvent.BUTTON2].pressed){
             popupMenu.show(Window.canvas, Mouse.x,Mouse.y);
         }
         for(int j = 0; j < containers.size(); j++){
@@ -202,28 +198,12 @@ public class NodeEditor {
             container.update();
         }
         for (var pair:connections) {
-            if(pair.getFirst().isReader()){
-                if(pair.getFirst() instanceof NumberNode toWrite && pair.getSecond() instanceof NumberNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getFirst() instanceof ColorNode toWrite && pair.getSecond() instanceof ColorNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getFirst() instanceof ImageNode toWrite && pair.getSecond() instanceof ImageNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getFirst() instanceof ShapeNode toWrite && pair.getSecond() instanceof ShapeNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getFirst() instanceof StringNode toWrite && pair.getSecond() instanceof StringNode toRead)
-                    toWrite.setValue(toRead.getValue());
-            }else if(pair.getSecond().isReader()){
-                if(pair.getSecond() instanceof NumberNode toWrite && pair.getFirst() instanceof NumberNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getSecond() instanceof ColorNode toWrite && pair.getFirst() instanceof ColorNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getSecond() instanceof ImageNode toWrite && pair.getFirst() instanceof ImageNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getSecond() instanceof ShapeNode toWrite && pair.getFirst() instanceof ShapeNode toRead)
-                    toWrite.setValue(toRead.getValue());
-                if(pair.getSecond() instanceof StringNode toWrite && pair.getFirst() instanceof StringNode toRead)
-                    toWrite.setValue(toRead.getValue());
+            if(pair.getSecond().getClass().equals(pair.getFirst().getClass())){
+                if(pair.getFirst().isReader()){
+                    pair.getFirst().setValue(pair.getSecond().getValue());
+                }else if(pair.getSecond().isReader()){
+                    pair.getSecond().setValue(pair.getFirst().getValue());
+                }
             }
         }
     }

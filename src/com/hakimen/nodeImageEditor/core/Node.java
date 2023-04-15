@@ -34,8 +34,8 @@ public class Node<T> implements Serializable{
         return value;
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public void setValue(Object value) {
+        this.value = (T) value;
     }
 
     public boolean isReader() {
