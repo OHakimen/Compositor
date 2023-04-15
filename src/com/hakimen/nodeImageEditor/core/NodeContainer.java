@@ -56,7 +56,6 @@ public class NodeContainer implements Serializable{
             RenderUtils.DrawCircle(circleX,circleY,4,v.nodeColor);
             RenderUtils.DrawString((int)(x + sx - RenderUtils.g.getFontMetrics().stringWidth(k) - 8),(int)circleY - 4,Color.WHITE,k);
         });
-
     }
 
 

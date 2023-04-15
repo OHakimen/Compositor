@@ -21,6 +21,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_NORMAL;
+
 public class ImageNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
@@ -50,9 +52,9 @@ public class ImageNodeContainer extends NodeContainer {
                             node.setValue(ImageIO.read(chooser.getSelectedFile()));
                             width.setValue(node.getValue().getWidth());
                             height.setValue(node.getValue().getHeight());
-                            NodeEditor.handler.push(new Notification("Loaded image", "Loaded image ", chooser.getSelectedFile().getName(), NodeEditor.NOTIFY_NORMAL).setImg(node.getValue()));
+                            NodeEditor.handler.push(new Notification("Loaded image", "Loaded image ", chooser.getSelectedFile().getName(), NOTIFY_NORMAL).setImg(node.getValue()));
                         }else{
-                            NodeEditor.handler.push(new WarningNotification("Couldn't load image", "No file provided", NodeEditor.NOTIFY_NORMAL));
+                            NodeEditor.handler.push(new WarningNotification("Couldn't load image", "No file provided", NOTIFY_NORMAL));
                         }
                     } catch (Exception ignored) {
 

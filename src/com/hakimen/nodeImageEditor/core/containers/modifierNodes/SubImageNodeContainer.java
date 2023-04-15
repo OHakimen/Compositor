@@ -7,6 +7,7 @@ import com.hakimen.nodeImageEditor.core.node.ImageNode;
 import com.hakimen.nodeImageEditor.core.node.NumberNode;
 
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 
 public class SubImageNodeContainer extends NodeContainer {
 
@@ -38,6 +39,7 @@ public class SubImageNodeContainer extends NodeContainer {
         }
     }
 
+    BufferedImage lastImage;
     @Override
     public void update() {
         super.update();
@@ -48,7 +50,10 @@ public class SubImageNodeContainer extends NodeContainer {
             readerNodes.get(HEIGHT) instanceof NumberNode height){
             if(writerNodes.get(OUTPUT) instanceof ImageNode out){
                 if(Window.ticks % 20 == 0 && x.getValue() != null && y.getValue() != null && width.getValue() != null && height.getValue() != null){
-                    out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),1 | width.getValue().intValue(), 1 | height.getValue().intValue()));
+                    var temp = img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),1 | width.getValue().intValue(), 1 | height.getValue().intValue());
+                    if(lastImage != temp){
+                        out.setValue(img.getValue().getSubimage(x.getValue().intValue(),y.getValue().intValue(),1 | width.getValue().intValue(), 1 | height.getValue().intValue()));
+                    }
                 }
             }
         }

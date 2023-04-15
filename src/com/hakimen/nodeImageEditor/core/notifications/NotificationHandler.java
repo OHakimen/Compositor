@@ -6,6 +6,11 @@ import com.hakimen.nodeImageEditor.core.notifications.notification.Notification;
 import java.util.ArrayList;
 
 public class NotificationHandler {
+
+
+    public static final int NOTIFY_SHORT = 60 * 5;
+    public static final int NOTIFY_NORMAL = 60 * 10;
+    public static final int NOTIFY_BIG = 60 * 15;
     ArrayList<Notification> notifications = new ArrayList<>();
 
     float bias;

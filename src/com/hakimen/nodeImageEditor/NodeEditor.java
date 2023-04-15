@@ -25,11 +25,9 @@ import java.awt.geom.CubicCurve2D;
 import java.io.File;
 import java.util.*;
 
-public class NodeEditor {
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_SHORT;
 
-    public static final int NOTIFY_SHORT = 60 * 5;
-    public static final int NOTIFY_NORMAL = 60 * 10;
-    public static final int NOTIFY_BIG = 60 * 15;
+public class NodeEditor {
     public static NotificationHandler handler = new NotificationHandler(0.25f);
     static int NodeConnectionRemoveKey = KeyEvent.VK_DELETE;
     MenuBar menuBar = new MenuBar();

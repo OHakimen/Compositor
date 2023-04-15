@@ -15,6 +15,8 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.util.Arrays;
 
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_SHORT;
+
 public class BlurNodeContainer extends NodeContainer {
     static final String BLUR_STRENGTH = "Blur Strength";
     static final String IMAGE = "Image";
@@ -50,7 +52,7 @@ public class BlurNodeContainer extends NodeContainer {
                 writerNodes.get(OUTPUT) instanceof ImageNode node) {
             if (lastValue != blur.getValue().intValue() && lastImage != image.getValue()) {
                 if(image.getValue() != null){
-                    NodeEditor.handler.push(new WarningNotification("Processing","This may take a while", NodeEditor.NOTIFY_SHORT));
+                    NodeEditor.handler.push(new WarningNotification("Processing","This may take a while", NOTIFY_SHORT));
 
                     var buff = new BufferedImage(image.getValue().getWidth(),image.getValue().getHeight(),2);
 

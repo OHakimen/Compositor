@@ -21,6 +21,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_NORMAL;
+
 public class BulkProcessNodeContainer extends NodeContainer {
 
     static final String NAME_TEMPLATE = "Name Template";
@@ -56,15 +58,15 @@ public class BulkProcessNodeContainer extends NodeContainer {
                     if (chooser.getSelectedFile() != null) {
                         if (file != chooser.getSelectedFile()) {
                             file = chooser.getSelectedFile().getParentFile();
-                            NodeEditor.handler.push(new SuccessNotification("Loaded Folder", "" + file, NodeEditor.NOTIFY_NORMAL));
+                            NodeEditor.handler.push(new SuccessNotification("Loaded Folder", "" + file, NOTIFY_NORMAL));
                         } else {
-                            NodeEditor.handler.push(new WarningNotification("Couldn't load", "Path isn't folder", NodeEditor.NOTIFY_NORMAL));
+                            NodeEditor.handler.push(new WarningNotification("Couldn't load", "Path isn't folder", NOTIFY_NORMAL));
                         }
                     } else {
-                        NodeEditor.handler.push(new WarningNotification("Couldn't load", "No file provided", NodeEditor.NOTIFY_NORMAL));
+                        NodeEditor.handler.push(new WarningNotification("Couldn't load", "No file provided", NOTIFY_NORMAL));
                     }
                 } catch (Exception ignored) {
-                    NodeEditor.handler.push(new WarningNotification("Processing "+ images.length + " images", "This might take a while", NodeEditor.NOTIFY_NORMAL));
+                    NodeEditor.handler.push(new WarningNotification("Processing "+ images.length + " images", "This might take a while", NOTIFY_NORMAL));
                 }
             }
 
@@ -95,7 +97,7 @@ public class BulkProcessNodeContainer extends NodeContainer {
                         lastInputImage = input.getValue();
                         out.setValue(images[imgCurrent]);
                     }else{
-                        NodeEditor.handler.push(new SuccessNotification("Processed "+ images.length + " images", "", NodeEditor.NOTIFY_NORMAL));
+                        NodeEditor.handler.push(new SuccessNotification("Processed "+ images.length + " images", "", NOTIFY_NORMAL));
                         started = false;
                     }
                 }

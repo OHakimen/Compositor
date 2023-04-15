@@ -15,6 +15,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_NORMAL;
+
 public class ExportNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
@@ -42,7 +44,7 @@ public class ExportNodeContainer extends NodeContainer {
                     try {
                         if(chooser.getSelectedFile() != null) {
                             ImageIO.write(node.getValue(), "PNG", chooser.getSelectedFile());
-                            NodeEditor.handler.push(new Notification("Export", "Saved image as", chooser.getSelectedFile().getName(),NodeEditor.NOTIFY_NORMAL).setImg(node.getValue()));
+                            NodeEditor.handler.push(new Notification("Export", "Saved image as", chooser.getSelectedFile().getName(),NOTIFY_NORMAL).setImg(node.getValue()));
                         }
                     } catch (Exception ignored) {
 

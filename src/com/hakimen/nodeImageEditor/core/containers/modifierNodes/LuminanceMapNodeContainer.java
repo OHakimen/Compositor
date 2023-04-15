@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
+import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_SHORT;
+
 public class LuminanceMapNodeContainer extends NodeContainer {
 
     static final String IMAGE = "Image";
@@ -56,7 +58,7 @@ public class LuminanceMapNodeContainer extends NodeContainer {
                     lastImage == null || lastImage != node.getValue()
                             || lastMax == null || lastMax != max.getValue()
                             || lastMin == null || lastMin != min.getValue())) {
-                NodeEditor.handler.push(new WarningNotification("Processing","This may take a while", NodeEditor.NOTIFY_SHORT));
+                NodeEditor.handler.push(new WarningNotification("Processing","This may take a while", NOTIFY_SHORT));
                 var buff = new BufferedImage(node.getValue().getWidth(), node.getValue().getHeight(),2);
                 var g = buff.getGraphics();
                 for (int x = 0; x < node.getValue().getWidth(); x++) {
