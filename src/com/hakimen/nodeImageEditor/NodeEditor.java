@@ -16,6 +16,7 @@ import com.hakimen.nodeImageEditor.utils.MenuUtils;
 import com.hakimen.nodeImageEditor.utils.Pair;
 import com.hakimen.nodeImageEditor.utils.ViewTransformer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
@@ -23,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static com.hakimen.nodeImageEditor.core.notifications.NotificationHandler.NOTIFY_SHORT;
@@ -47,6 +49,11 @@ public class NodeEditor {
     public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
 
     public NodeEditor(){
+        try {
+            Window.frame.setIconImage(ImageIO.read(NodeEditor.class.getResource("assets/icon.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
