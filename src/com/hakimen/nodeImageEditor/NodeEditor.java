@@ -69,6 +69,7 @@ public class NodeEditor {
         MenuUtils.makeJMenu(popupMenu,this);
         Menu fileMenus = new Menu("File");
         var save = new MenuItem("Save Project");
+        save.setShortcut(new MenuShortcut(KeyEvent.VK_S));
         save.addActionListener((a)->{
             project = new Project(containers,connections);
             chooser.showSaveDialog(null);
@@ -88,7 +89,7 @@ public class NodeEditor {
         });
         fileMenus.add(save);
         var open = new MenuItem("Open Project");
-
+        open.setShortcut(new MenuShortcut(KeyEvent.VK_O));
         open.addActionListener((a)->{
             chooser.showOpenDialog(null);
             if(chooser.getSelectedFile() == null){
@@ -108,8 +109,16 @@ public class NodeEditor {
             Window.frame.setTitle(title);
         });
 
+        var clearProject = new MenuItem("Clear Project");
+        clearProject.addActionListener((a)->{
+            if(JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the project ?") == 0){
+                connections.clear();
+                containers.clear();
+            }
+        });
         fileMenus.add(save);
         fileMenus.add(open);
+        fileMenus.add(clearProject);
 
         menuBar.add(fileMenus);
         Window.frame.setMenuBar(menuBar);

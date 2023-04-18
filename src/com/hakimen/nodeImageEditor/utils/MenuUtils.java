@@ -13,13 +13,13 @@ import com.hakimen.nodeImageEditor.core.containers.modifierNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.OvalShapeNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RectangleShapeNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.RoundRectShapeNodeContainer;
-import com.hakimen.nodeImageEditor.core.containers.utilityNodes.*;
+import com.hakimen.nodeImageEditor.core.containers.utilityNodes.ImageDataNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.utilityNodes.spliters.*;
+import com.hakimen.nodeImageEditor.core.containers.utilityNodes.value.*;
 import com.hakimen.nodeImageEditor.core.containers.viewNodes.ImageViewNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.viewNodes.ValueViewNodeContainer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.function.BiFunction;
 
 public class MenuUtils {
@@ -75,19 +75,22 @@ public class MenuUtils {
 
         JMenu valueNodes = new JMenu("Value Nodes");
 
-        JMenu splitterNodes = new JMenu("Splitter Nodes");
-        splitterNodes.add(makeJItem("Number Splitter Node", editor, NumberSplitterNodeContainer::new));
-        splitterNodes.add(makeJItem("Shape Splitter Node", editor, ShapeSplitterNodeContainer::new));
-        splitterNodes.add(makeJItem("Image Splitter Node", editor, ImageSplitterNodeContainer::new));
-        splitterNodes.add(makeJItem("Color Splitter Node", editor, ColorSplitterNodeContainer::new));
-        splitterNodes.add(makeJItem("String Splitter Node", editor, StringSplitterNodeContainer::new));
-        valueNodes.add(splitterNodes);
-
         valueNodes.add(makeJItem("Clock Node", editor, ClockNodeContainer::new));
         valueNodes.add(makeJItem("Color Node", editor, ColorNodeContainer::new));
         valueNodes.add(makeJItem("Image Node", editor, ImageNodeContainer::new));
         valueNodes.add(makeJItem("Value Node", editor, ValueNodeContainer::new));
         valueNodes.add(makeJItem("String Node", editor, StringNodeContainer::new));
+
+        JMenu utilityNodes = new JMenu("Utility Nodes");
+        JMenu splitterNodes = new JMenu("Splitter Nodes");
+        splitterNodes.add(makeJItem("Color Splitter Node", editor, ColorSplitterNodeContainer::new));
+        splitterNodes.add(makeJItem("Image Splitter Node", editor, ImageSplitterNodeContainer::new));
+        splitterNodes.add(makeJItem("Shape Splitter Node", editor, ShapeSplitterNodeContainer::new));
+        splitterNodes.add(makeJItem("Number Splitter Node", editor, NumberSplitterNodeContainer::new));
+        splitterNodes.add(makeJItem("String Splitter Node", editor, StringSplitterNodeContainer::new));
+        utilityNodes.add(splitterNodes);
+
+        utilityNodes.add(makeJItem("Image Data Node", editor, ImageDataNodeContainer::new));
 
         JMenu viewNodes = new JMenu("View Nodes");
         viewNodes.add(makeJItem("Image View Node", editor, ImageViewNodeContainer::new));
@@ -99,6 +102,7 @@ public class MenuUtils {
         menu.add(shapeNodes);
         menu.add(valueNodes);
         menu.add(viewNodes);
+        menu.add(utilityNodes);
         menu.add(makeJItem("Export Node",editor, ExportNodeContainer::new));
         menu.add(makeJItem("Bulk Process Node",editor, BulkProcessNodeContainer::new));
     }

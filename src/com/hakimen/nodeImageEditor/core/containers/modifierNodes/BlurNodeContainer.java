@@ -21,8 +21,6 @@ public class BlurNodeContainer extends NodeContainer {
     static final String BLUR_STRENGTH = "Blur Strength";
     static final String IMAGE = "Image";
     static final String OUTPUT = "Output Image";
-
-
     int lastValue = 0;
     BufferedImage lastImage = new BufferedImage(1,1,2);
     public BlurNodeContainer(float x, float y) {
@@ -30,7 +28,6 @@ public class BlurNodeContainer extends NodeContainer {
         sx += 64;
         readerNodes.put(BLUR_STRENGTH, new NumberNode(uuid, true, 0f));
         readerNodes.put(IMAGE, new ImageNode(uuid, true));
-
         writerNodes.put(OUTPUT, new ImageNode(uuid, false));
     }
 
