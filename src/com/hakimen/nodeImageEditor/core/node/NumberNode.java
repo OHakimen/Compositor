@@ -9,12 +9,10 @@ import java.util.UUID;
 public class NumberNode extends Node<Number> {
     public NumberNode(UUID container, boolean isReader, Number value) {
         super(container, isReader, value);
-        setNodeColor(Color.GREEN);
     }
 
     public NumberNode(UUID container, boolean isReader) {
         super(container, isReader);
         setValue(0f);
-        setNodeColor(Color.GREEN);
     }
 }

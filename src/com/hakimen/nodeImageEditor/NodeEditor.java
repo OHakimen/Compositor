@@ -11,10 +11,7 @@ import com.hakimen.nodeImageEditor.core.notifications.notification.ErrorNotifica
 import com.hakimen.nodeImageEditor.core.notifications.NotificationHandler;
 import com.hakimen.nodeImageEditor.core.notifications.notification.SuccessNotification;
 import com.hakimen.nodeImageEditor.core.project.Project;
-import com.hakimen.nodeImageEditor.utils.Collisions;
-import com.hakimen.nodeImageEditor.utils.MenuUtils;
-import com.hakimen.nodeImageEditor.utils.Pair;
-import com.hakimen.nodeImageEditor.utils.ViewTransformer;
+import com.hakimen.nodeImageEditor.utils.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,6 +46,7 @@ public class NodeEditor {
     public ArrayList<Pair<Node<?>,Node<?>>> connections = new ArrayList<>();
 
     public NodeEditor(){
+        NodeColorsUtils.init();
         try {
             Window.frame.setIconImage(ImageIO.read(NodeEditor.class.getResource("assets/icon.png")));
         } catch (IOException e) {
@@ -232,13 +230,13 @@ public class NodeEditor {
                 float dist = (float)Math.sqrt(Math.pow((fnodeX-ViewTransformer.transformedMouseX),2) + Math.pow((fnodeY-ViewTransformer.transformedMouseY),2)) / 2;
 
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-dist,fnodeY+2,ViewTransformer.transformedMouseX + dist,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
-                RenderUtils.DrawShape(shape,currentNode.getNodeColor());
+                RenderUtils.DrawShape(shape,NodeColorsUtils.nodeColors.get(currentNode.getClass()));
             }else{
                 fnodeX = containers.get(currentNode.getContainer()).x + containers.get(currentNode.getContainer()).sx - 2;
                 fnodeY = containers.get(currentNode.getContainer()).y + (containers.get(currentNode.getContainer()).writerNodes.values().stream().toList().indexOf(currentNode) - 1) * 24+ 96;
                 float dist = 128;
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+dist,fnodeY+2,ViewTransformer.transformedMouseX - dist,ViewTransformer.transformedMouseY+2,ViewTransformer.transformedMouseX+2,ViewTransformer.transformedMouseY+2);
-                RenderUtils.DrawShape(shape,currentNode.getNodeColor());
+                RenderUtils.DrawShape(shape,NodeColorsUtils.nodeColors.get(currentNode.getClass()));
             }
         }
         for (var pair:connections) {
@@ -269,10 +267,10 @@ public class NodeEditor {
             float dist = 128;
             if(pair.getFirst().isReader()){
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX-dist,fnodeY+2,snodeX + dist,snodeY+2,snodeX+2,snodeY+2);
-                RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
+                RenderUtils.DrawShape(shape,NodeColorsUtils.nodeColors.get(pair.getFirst().getClass()));
             }else if(pair.getSecond().isReader()){
                 var shape = new CubicCurve2D.Float(fnodeX+2,fnodeY+2,fnodeX+dist,fnodeY+2,snodeX - dist,snodeY+2,snodeX+2,snodeY+2);
-                RenderUtils.DrawShape(shape,pair.getFirst().getNodeColor());
+                RenderUtils.DrawShape(shape,NodeColorsUtils.nodeColors.get(pair.getFirst().getClass()));
             }
 
         }

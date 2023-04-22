@@ -10,12 +10,10 @@ import java.util.UUID;
 public class ImageNode extends Node<BufferedImage> {
     public ImageNode(UUID container, boolean isReader, BufferedImage value) {
         super(container, isReader, value);
-        setNodeColor(Color.cyan);
     }
 
     public ImageNode(UUID container, boolean isReader) {
         super(container, isReader);
         setValue(new BufferedImage(1,1,2));
-        setNodeColor(Color.cyan);
     }
 }

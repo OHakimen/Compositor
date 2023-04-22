@@ -8,7 +8,6 @@ public class Node<T> implements Serializable{
     boolean isReader;
     T value;
 
-    Color nodeColor;
     UUID container;
 
     public UUID getContainer() {
@@ -46,11 +45,4 @@ public class Node<T> implements Serializable{
         isReader = reader;
     }
 
-    public Color getNodeColor() {
-        return nodeColor;
-    }
-
-    public void setNodeColor(Color nodeColor) {
-        this.nodeColor = nodeColor;
-    }
 }

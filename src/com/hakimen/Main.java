@@ -56,9 +56,7 @@ public class Main implements Runnable{
 
     private void render(){
         RenderUtils.SetRenderHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-
         ViewTransformer.update();
-
         nodeEditor.render();
         ViewTransformer.reset();
         NodeEditor.handler.render();

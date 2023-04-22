@@ -1,6 +1,8 @@
 package com.hakimen.nodeImageEditor.core;
 
 import com.hakimen.engine.core.utils.RenderUtils;
+import com.hakimen.nodeImageEditor.utils.NodeColorsUtils;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
@@ -46,14 +48,14 @@ public class NodeContainer implements Serializable{
         readerNodes.forEach((k,v)->{
             float circleX = x-2;
             float circleY = y + (readerNodes.keySet().stream().toList().indexOf(k)-1) * 24 + 96;
-            RenderUtils.DrawCircle(circleX,circleY,4,v.nodeColor);
+            RenderUtils.DrawCircle(circleX,circleY,4, NodeColorsUtils.nodeColors.get(v.getClass()));
             RenderUtils.DrawString((int)x + 8, (int)circleY - 4,Color.WHITE,k);
         });
         writerNodes.forEach((k,v)->{
             float circleX = x + sx - 2;
             float circleY = y + (writerNodes.keySet().stream().toList().indexOf(k)-1) * 24 + 96;
 
-            RenderUtils.DrawCircle(circleX,circleY,4,v.nodeColor);
+            RenderUtils.DrawCircle(circleX,circleY,4,NodeColorsUtils.nodeColors.get(v.getClass()));
             RenderUtils.DrawString((int)(x + sx - RenderUtils.g.getFontMetrics().stringWidth(k) - 8),(int)circleY - 4,Color.WHITE,k);
         });
     }

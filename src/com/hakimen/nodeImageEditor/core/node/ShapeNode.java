@@ -10,12 +10,10 @@ import java.util.UUID;
 public class ShapeNode extends Node<Shape> {
     public ShapeNode(UUID container, boolean isReader, Shape value) {
         super(container, isReader, value);
-        setNodeColor(Color.MAGENTA.darker());
     }
 
     public ShapeNode(UUID container, boolean isReader) {
         super(container, isReader);
         setValue(new Rectangle2D.Float(1,1,1,1));
-        setNodeColor(Color.MAGENTA.darker());
     }
 }
