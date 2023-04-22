@@ -66,7 +66,7 @@ public class NodeEditor {
             }
         });
 
-        MenuUtils.makeJMenu(popupMenu,this);
+        MenuUtils.register(popupMenu,this);
         Menu fileMenus = new Menu("File");
         var save = new MenuItem("Save Project");
         save.setShortcut(new MenuShortcut(KeyEvent.VK_S));

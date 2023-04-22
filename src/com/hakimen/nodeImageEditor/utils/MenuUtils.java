@@ -8,6 +8,8 @@ import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToHSLCont
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.ColorToRGBContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.HSLToColorContainer;
 import com.hakimen.nodeImageEditor.core.containers.converterNodes.RGBtoColorContainer;
+import com.hakimen.nodeImageEditor.core.containers.gradientNodes.LinearGradientNodeContainer;
+import com.hakimen.nodeImageEditor.core.containers.gradientNodes.RadialGradientNodeContainer;
 import com.hakimen.nodeImageEditor.core.containers.mathNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.modifierNodes.*;
 import com.hakimen.nodeImageEditor.core.containers.shapeNodes.OvalShapeNodeContainer;
@@ -23,7 +25,10 @@ import javax.swing.*;
 import java.util.function.BiFunction;
 
 public class MenuUtils {
-    public static void makeJMenu(JPopupMenu menu, NodeEditor editor){
+
+
+    public static void register(JPopupMenu menu, NodeEditor editor){
+
         JMenu converterNodes = new JMenu("Converter Nodes");
         converterNodes.add(makeJItem("Color to HLS Node", editor, ColorToHSLContainer::new));
         converterNodes.add(makeJItem("Color to RGB Node", editor, ColorToRGBContainer::new));
@@ -77,11 +82,18 @@ public class MenuUtils {
 
         valueNodes.add(makeJItem("Clock Node", editor, ClockNodeContainer::new));
         valueNodes.add(makeJItem("Color Node", editor, ColorNodeContainer::new));
+        valueNodes.add(makeJItem("Color Array Node", editor, ColorArrayNodeContainer::new));
         valueNodes.add(makeJItem("Image Node", editor, ImageNodeContainer::new));
         valueNodes.add(makeJItem("Value Node", editor, ValueNodeContainer::new));
+        valueNodes.add(makeJItem("Value Array Node", editor, NumberArrayNodeContainer::new));
         valueNodes.add(makeJItem("String Node", editor, StringNodeContainer::new));
 
+        JMenu gradientNodes = new JMenu("Gradient Nodes");
+        gradientNodes.add(makeJItem("Linear Gradient Node", editor, LinearGradientNodeContainer::new));
+        gradientNodes.add(makeJItem("Radial Gradient Node", editor, RadialGradientNodeContainer::new));
+
         JMenu utilityNodes = new JMenu("Utility Nodes");
+
         JMenu splitterNodes = new JMenu("Splitter Nodes");
         splitterNodes.add(makeJItem("Color Splitter Node", editor, ColorSplitterNodeContainer::new));
         splitterNodes.add(makeJItem("Image Splitter Node", editor, ImageSplitterNodeContainer::new));
@@ -97,6 +109,7 @@ public class MenuUtils {
         viewNodes.add(makeJItem("Value View Node", editor, ValueViewNodeContainer::new));
 
         menu.add(converterNodes);
+        menu.add(gradientNodes);
         menu.add(mathNodes);
         menu.add(modifierNodes);
         menu.add(shapeNodes);
