@@ -28,7 +28,7 @@ public class RadialGradientNodeContainer extends NodeContainer {
 
         readerNodes.put(X,new NumberNode(uuid,true));
         readerNodes.put(Y,new NumberNode(uuid,true));
-        readerNodes.put(RADIUS,new NumberNode(uuid,true));
+        readerNodes.put(RADIUS,new NumberNode(uuid,true,1));
         readerNodes.put(WIDTH,new NumberNode(uuid,true));
         readerNodes.put(HEIGHT,new NumberNode(uuid,true));
         readerNodes.put(COLORS,new ColorArrayNode(uuid,true));
@@ -69,7 +69,7 @@ public class RadialGradientNodeContainer extends NodeContainer {
                 var g = tempImage.createGraphics();
                 g.setPaint(new RadialGradientPaint(x1.getValue().floatValue(),
                         y1.getValue().floatValue(),
-                        x2.getValue().floatValue(),
+                        x2.getValue().floatValue() ,
                         floats,colors.getValue()));
                 g.fill(new Rectangle2D.Float(0,0,width.getValue().floatValue(),height.getValue().floatValue()));
                 g.dispose();
